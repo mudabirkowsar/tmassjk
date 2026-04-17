@@ -13,7 +13,7 @@ const Navbar = () => {
         { name: "Institutions", href: "/institutions" },
         { name: "Founders", href: "/founders" },
         { name: "Events", href: "/events" },
-        { name: "About", href: "/about" },
+        { name: "About", href: "/aboutus" },
     ];
 
     return (
@@ -41,9 +41,9 @@ const Navbar = () => {
                                     href={link.href}
                                     className={`text-[16px] font-semibold transition-all duration-200 border-b-2 pb-1
                                     ${isActive
-                                        ? "text-brand-primary border-brand-primary"
-                                        : "text-brand-gray border-transparent hover:text-brand-primary hover:border-brand-primary/30"
-                                    }`}
+                                            ? "text-brand-primary border-brand-primary"
+                                            : "text-brand-gray border-transparent hover:text-brand-primary hover:border-brand-primary/30"
+                                        }`}
                                 >
                                     {link.name}
                                 </Link>
