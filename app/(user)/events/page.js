@@ -5,6 +5,13 @@ import UpcomingEvents from './components/UpcomingEvents'
 import EventMagazineHighlight from '../components/otherComponents/EventMagazineHighlight'
 import HadithSpotlight from '../components/otherComponents/HadithSpotlight'
 
+// ✅ SEO / Page Title
+export const metadata = {
+  title: "TMA Sufi Events",
+  description:
+    "Explore sacred gatherings, upcoming events, and spiritual programs organized by Tanzeem-ul-Madaris Ahle Sunnat Sufi J&K.",
+};
+
 function page() {
     return (
         <>

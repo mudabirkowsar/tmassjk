@@ -6,6 +6,12 @@ import HadithSpotlight from '../components/otherComponents/HadithSpotlight'
 import RegionalReach from './components/RegionalReach';
 import FaithFoundation from './components/FaithFoundation';
 
+export const metadata = {
+    title: "TMA Sufi About",
+    description:
+        "Explore sacred gatherings, upcoming events, and spiritual programs organized by Tanzeem-ul-Madaris Ahle Sunnat Sufi J&K.",
+};
+
 function page() {
     return (
         <>
