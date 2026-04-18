@@ -1,3 +1,4 @@
+import Link from 'next/link';
 import React from 'react';
 
 function HeroSection() {
@@ -49,7 +50,7 @@ function HeroSection() {
                                 </p>
                             </div>
 
-                            <div className="flex items-center justify-between">
+                            <Link href="/aboutus" className="flex items-center justify-between">
                                 <span className="text-sm font-semibold text-[#08B36A]">
                                     Learn More
                                 </span>
@@ -66,7 +67,7 @@ function HeroSection() {
                                         <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                     </svg>
                                 </div>
-                            </div>
+                            </Link>
 
                         </div>
                     </div>
@@ -85,7 +86,7 @@ function HeroSection() {
                                 </p>
                             </div>
 
-                            <div className="flex items-center justify-between">
+                            <Link href="/affiliationform" className="flex items-center justify-between">
                                 <span className="text-sm font-semibold text-[#08B36A]">
                                     Get Started
                                 </span>
@@ -102,7 +103,7 @@ function HeroSection() {
                                         <path d="M13 7l5 5m0 0l-5 5m5-5H6" />
                                     </svg>
                                 </div>
-                            </div>
+                            </Link>
 
                         </div>
                     </div>

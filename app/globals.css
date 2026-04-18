@@ -5,8 +5,10 @@
   --color-brand-secondary: #047857;
   --color-brand-accent: #059669;
   --color-brand-gray: #475569;
+  --color-brand-black: #000000;
   --color-brand-white: #FFFFFF;
-  --color-brand-background: #FAF9F6;
+  /* --color-brand-background: #FAF9F6; */
+  --color-brand-background: #FFFFFF;
 
   /* Mission Card Colors */
   --color-card-green: #9FF19C;
