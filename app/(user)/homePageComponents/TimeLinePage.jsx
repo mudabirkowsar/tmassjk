@@ -1,5 +1,6 @@
 'use client';
 
+import Link from 'next/link';
 import React from 'react';
 import {
     HiOutlineCheckCircle,
@@ -138,10 +139,10 @@ const TimelinePage = () => {
                             </div>
                         </div>
 
-                        <button className="relative z-10 px-8 py-3 bg-brand-primary text-white rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-brand-primary/90 transition-all flex items-center gap-2 group">
+                        <Link href="/affiliationform" className="relative z-10 px-8 py-3 bg-brand-primary text-white rounded-lg font-bold text-xs uppercase tracking-widest hover:bg-brand-primary/90 transition-all flex items-center gap-2 group">
                             Partner With Us
                             <HiOutlineArrowRight className="group-hover:translate-x-1 transition-transform" />
-                        </button>
+                        </Link>
                     </div>
 
                     <p className="text-center mt-10 text-[10px] font-bold text-gray-300 uppercase tracking-[0.4em]">
