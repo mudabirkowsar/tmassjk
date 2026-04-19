@@ -1,6 +1,12 @@
 import React from 'react';
 import Link from 'next/link';
-import { HiOutlineSparkles, HiOutlineAcademicCap, HiOutlineEnvelope } from "react-icons/hi2";
+import { 
+  HiOutlineSparkles, 
+  HiOutlineAcademicCap, 
+  HiOutlineEnvelope, 
+  HiOutlinePhone, 
+  HiOutlineMapPin 
+} from "react-icons/hi2";
 import { PiQuotesFill, PiBookOpenLight, PiScrollLight } from "react-icons/pi";
 
 const foundingScholars = [
@@ -31,6 +37,45 @@ const foundingScholars = [
     role: "Founding Member",
     image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop",
     bio: "Led the movement's expansion into the Jammu region, ensuring a unified syllabus across diverse geographies."
+  }
+];
+
+const coreMembers = [
+  {
+    name: "Abdul Rashid Sheikh ",
+    phone: "+91 8082781165",
+    address: "Mirgund Khanabal, Anantnag, J&K",
+    image: "/founderandother/abdulrasheed.jpg"
+  },
+  {
+    name: "Mohammad Yaseen Mir ",
+    phone: "+91  7006291989",
+    address: "Parigam Pulwama, J&K",
+    image: "/founderandother/mohammadyaseen.jpg"
+  },
+  {
+    name: "Sameer Ahmed Bhat ",
+    phone: "+91 8825046847",
+    address: "Parigam Pulwama, J&K",
+    image: "/founderandother/sameerahmad.jpg"
+  },
+  {
+    name: "Muzzafar Ahmed Teli ",
+    phone: "+91 7006918589",
+    address: "Zawoora, Shopian , J&K",
+    image: "/founderandother/muzzafarahmad.jpg"
+  },
+  {
+    name: "Farooq Ahmed Mir",
+    phone: "+91 9622044444",
+    address: "Monghal, Anantnag , J&K",
+    image: "/founderandother/farooqahmed.jpg"
+  },
+  {
+    name: "Lateef Ahmed Malik",
+    phone: "+91 7006272887",
+    address: "Parigam, Pulwama, J&K",
+    image: "/founderandother/lateefahmad.jpg"
   }
 ];
 
@@ -121,7 +166,6 @@ function FoundersPage() {
                         className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
                     />
                 </div>
-                {/* Decorative Icon */}
                 <div className="absolute -bottom-2 -right-2 bg-brand-primary text-white p-3 rounded-2xl shadow-lg">
                     <HiOutlineAcademicCap size={20} />
                 </div>
@@ -150,7 +194,53 @@ function FoundersPage() {
         </div>
       </section>
 
-      {/* --- 4. CLOSING TRIBUTE --- */}
+      {/* --- 4. CORE MEMBERS SECTION --- */}
+      <section className="bg-brand-background py-6 px-6 md:px-4 lg:px-10">
+        <div className="max-w-7xl mx-auto">
+          <div className="mb-16">
+            <span className="text-brand-primary font-bold uppercase tracking-[0.3em] text-[10px]">The Operational Backbone</span>
+            <h3 className="text-3xl md:text-5xl font-serif text-[#1e293b] mt-4">Core Members</h3>
+            <p className="text-brand-gray mt-4 max-w-xl opacity-70">
+              The dedicated individuals responsible for the daily execution and administrative excellence of our educational goals.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            {coreMembers.map((member, index) => (
+              <div key={index} className="bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-xl transition-all duration-300 group">
+                <div className="flex items-center gap-6 mb-6">
+                  <div className="w-20 h-20 rounded-2xl overflow-hidden shrink-0 shadow-md">
+                    <img 
+                      src={member.image} 
+                      alt={member.name} 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-serif font-bold text-[#1e293b] group-hover:text-brand-primary transition-colors">
+                      {member.name}
+                    </h4>
+                    <p className="text-[10px] font-bold uppercase tracking-widest text-brand-primary mt-1">Working Committee</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-3 pt-6 border-t border-gray-50">
+                  <div className="flex items-center gap-3 text-brand-gray/80">
+                    <HiOutlinePhone className="text-brand-primary shrink-0" size={18} />
+                    <span className="text-sm font-medium">{member.phone}</span>
+                  </div>
+                  <div className="flex items-start gap-3 text-brand-gray/80">
+                    <HiOutlineMapPin className="text-brand-primary shrink-0 mt-1" size={18} />
+                    <span className="text-sm leading-relaxed">{member.address}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- 5. CLOSING TRIBUTE --- */}
       <section className="bg-brand-accent py-24 px-6 text-center text-white relative overflow-hidden">
         <div className="absolute top-0 left-0 w-64 h-64 bg-white/5 rounded-full -ml-32 -mt-32 blur-3xl"></div>
         <div className="max-w-3xl mx-auto relative z-10">

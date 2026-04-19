@@ -18,7 +18,7 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="w-full bg-gray-50 border-b border-gray-100 sticky top-0 z-50">
+        <nav className="w-full bg-gray-50 border-b border-gray-100 sticky top-0 z-[60]">
             <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between h-20">
 
                 {/* LOGO */}
@@ -30,8 +30,6 @@ const Navbar = () => {
 
                 {/* DESKTOP NAV */}
                 <div className="hidden lg:flex items-center gap-x-12">
-
-                    {/* Links */}
                     <div className="flex items-center gap-x-8">
                         {navLinks.map((link) => {
                             const isActive = pathname === link.href;
@@ -52,7 +50,6 @@ const Navbar = () => {
                         })}
                     </div>
 
-                    {/* CTA BUTTON (FIXED) */}
                     <Link
                         href="/affiliationform"
                         className="bg-brand-primary hover:bg-brand-secondary text-white px-7 py-2.5 rounded-lg text-[15px] font-bold transition-all shadow-sm active:scale-95"
@@ -67,7 +64,7 @@ const Navbar = () => {
                         type="button"
                         onClick={() => setIsOpen(!isOpen)}
                         aria-expanded={isOpen}
-                        className="text-brand-primary p-2 rounded-md hover:bg-gray-100 transition-colors z-[60]"
+                        className="text-brand-primary p-2 rounded-md hover:bg-gray-100 transition-colors z-[70] relative"
                     >
                         <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             {isOpen ? (
@@ -80,17 +77,17 @@ const Navbar = () => {
                 </div>
             </div>
 
-            {/* OVERLAY (PREMIUM TOUCH) */}
+            {/* OVERLAY */}
             {isOpen && (
                 <div
                     onClick={() => setIsOpen(false)}
-                    className="fixed inset-0 bg-black/30 backdrop-blur-sm z-40 lg:hidden"
+                    className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[50] lg:hidden"
                 />
             )}
 
             {/* MOBILE MENU */}
             <div
-                className={`lg:hidden absolute w-full left-0 bg-white border-t border-gray-100 shadow-lg z-50 transition-all duration-300 ease-in-out
+                className={`lg:hidden fixed top-20 left-0 w-full bg-white border-t border-gray-100 shadow-lg z-[65] transition-all duration-300 ease-in-out
         ${isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"}`}
             >
                 <div className="px-6 py-8 flex flex-col gap-y-6">
@@ -113,7 +110,6 @@ const Navbar = () => {
                         );
                     })}
 
-                    {/* CTA (FIXED) */}
                     <Link
                         href="/affiliationform"
                         onClick={() => setIsOpen(false)}
