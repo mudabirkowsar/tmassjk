@@ -1,6 +1,7 @@
 import "../globals.css";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
+import TopNavbar from "./components/TopNavbar";
 
 // ✅ Add metadata here
 export const metadata = {
@@ -12,9 +13,11 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body>
+      {/* Remove any custom overflow styles from body if they exist */}
+      <body className="antialiased">
+        <TopNavbar />
         <Navbar />
-        {children}
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

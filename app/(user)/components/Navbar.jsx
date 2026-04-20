@@ -1,12 +1,25 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { Menu, X } from "lucide-react";
 
 const Navbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const pathname = usePathname();
+
+    useEffect(() => {
+        setIsOpen(false);
+    }, [pathname]);
+
+    useEffect(() => {
+        if (isOpen) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+    }, [isOpen]);
 
     const navLinks = [
         { name: "Home", href: "/" },
@@ -18,108 +31,102 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="w-full bg-gray-50 border-b border-gray-100 sticky top-0 z-[60]">
-            <div className="max-w-[1440px] mx-auto px-6 md:px-12 flex items-center justify-between h-20">
+        <>
+            {/* 
+               1. Increased z-index to 999 to beat any other element on the page 
+               2. Added "isolate" to create a new stacking context
+            */}
+            <nav className="w-full bg-white border-b border-gray-100 sticky top-0 z-[999] h-20 flex items-center isolate">
+                <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between w-full">
 
-                {/* LOGO */}
-                <Link href="/" className="flex-shrink-0">
-                    <span className="logo-font text-2xl font-bold text-brand-primary tracking-tight">
-                        TMA Sufi J&K
-                    </span>
-                </Link>
+                    {/* LOGO */}
+                    <Link href="/" className="relative z-[1001]">
+                        <span className="logo-font text-xl md:text-2xl font-bold text-brand-primary tracking-tight">
+                            TMA Sufi J&K
+                        </span>
+                    </Link>
 
-                {/* DESKTOP NAV */}
-                <div className="hidden lg:flex items-center gap-x-12">
-                    <div className="flex items-center gap-x-8">
-                        {navLinks.map((link) => {
-                            const isActive = pathname === link.href;
-
-                            return (
+                    {/* DESKTOP NAV */}
+                    <div className="hidden lg:flex items-center gap-x-8 xl:gap-x-12">
+                        <div className="flex items-center gap-x-8">
+                            {navLinks.map((link) => (
                                 <Link
                                     key={link.name}
                                     href={link.href}
-                                    className={`text-[16px] font-semibold transition-all duration-200 border-b-2 pb-1
-                  ${isActive
+                                    className={`text-[16px] font-semibold transition-all border-b-2 pb-1 ${pathname === link.href
                                             ? "text-brand-primary border-brand-primary"
-                                            : "text-brand-gray border-transparent hover:text-brand-primary hover:border-brand-primary/30"
+                                            : "text-brand-gray border-transparent hover:text-brand-primary"
                                         }`}
                                 >
                                     {link.name}
                                 </Link>
-                            );
-                        })}
+                            ))}
+                        </div>
+                        <Link
+                            href="/affiliationform"
+                            className="bg-brand-primary text-white px-7 py-2.5 rounded-lg font-bold"
+                        >
+                            Join Us
+                        </Link>
                     </div>
 
-                    <Link
-                        href="/affiliationform"
-                        className="bg-brand-primary hover:bg-brand-secondary text-white px-7 py-2.5 rounded-lg text-[15px] font-bold transition-all shadow-sm active:scale-95"
-                    >
-                        Join Us
-                    </Link>
-                </div>
-
-                {/* MOBILE TOGGLE */}
-                <div className="lg:hidden flex items-center">
+                    {/* MOBILE TOGGLE BUTTON 
+                        FIXED: Changed z-150 to z-[1001] (with brackets)
+                        ADDED: type="button" and larger padding for better touch
+                    */}
                     <button
                         type="button"
-                        onClick={() => setIsOpen(!isOpen)}
-                        aria-expanded={isOpen}
-                        className="text-brand-primary p-2 rounded-md hover:bg-gray-100 transition-colors z-[70] relative"
+                        onClick={(e) => {
+                            e.preventDefault();
+                            setIsOpen(!isOpen);
+                        }}
+                        className="lg:hidden relative z-[1001] p-4 -mr-2 text-brand-primary cursor-pointer border border-transparent active:bg-gray-100 rounded-lg"
+                        style={{ touchAction: "manipulation" }}
                     >
-                        <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            {isOpen ? (
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M6 18L18 6M6 6l12 12" />
-                            ) : (
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M4 6h16M4 12h16m-7 6h7" />
-                            )}
-                        </svg>
+                        {isOpen ? <X size={32} /> : <Menu size={32} />}
                     </button>
                 </div>
-            </div>
+            </nav>
 
-            {/* OVERLAY */}
-            {isOpen && (
-                <div
-                    onClick={() => setIsOpen(false)}
-                    className="fixed inset-0 bg-black/30 backdrop-blur-sm z-[50] lg:hidden"
-                />
-            )}
-
-            {/* MOBILE MENU */}
+            {/* FULL SCREEN MOBILE MENU OVERLAY */}
             <div
-                className={`lg:hidden fixed top-20 left-0 w-full bg-white border-t border-gray-100 shadow-lg z-[65] transition-all duration-300 ease-in-out
-        ${isOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"}`}
+                className={`fixed inset-0 z-[998] lg:hidden transition-all duration-300 ${isOpen ? "opacity-100 pointer-events-auto visible" : "opacity-0 pointer-events-none invisible"
+                    }`}
             >
-                <div className="px-6 py-8 flex flex-col gap-y-6">
+                {/* Dark Backdrop */}
+                <div
+                    className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+                    onClick={() => setIsOpen(false)}
+                />
 
-                    {navLinks.map((link) => {
-                        const isActive = pathname === link.href;
-
-                        return (
+                {/* Menu Content (Drawer) */}
+                <div
+                    className={`absolute top-0 right-0 w-[280px] sm:w-[350px] h-full bg-white shadow-2xl transition-transform duration-300 ease-in-out transform ${isOpen ? "translate-x-0" : "translate-x-full"
+                        }`}
+                >
+                    <div className="flex flex-col pt-24 px-8 gap-y-6">
+                        {navLinks.map((link) => (
                             <Link
                                 key={link.name}
                                 href={link.href}
                                 onClick={() => setIsOpen(false)}
-                                className={`text-xl font-bold transition-colors ${isActive
-                                    ? "text-brand-primary"
-                                    : "text-brand-gray hover:text-brand-primary"
+                                className={`text-xl font-bold py-2 ${pathname === link.href ? "text-brand-primary" : "text-gray-700"
                                     }`}
                             >
                                 {link.name}
                             </Link>
-                        );
-                    })}
-
-                    <Link
-                        href="/affiliationform"
-                        onClick={() => setIsOpen(false)}
-                        className="w-full block text-center bg-brand-primary text-white py-4 rounded-xl font-bold text-lg mt-2 shadow-md hover:bg-brand-secondary transition"
-                    >
-                        Join Us
-                    </Link>
+                        ))}
+                        <Link
+                            href="/affiliationform"
+                            onClick={() => setIsOpen(false)}
+                            className="w-full bg-brand-primary text-white py-4 rounded-xl font-bold text-center"
+                        >
+                            Join Us
+                        </Link>
+                    </div>
                 </div>
             </div>
-        </nav>
+        </>
     );
 };
 

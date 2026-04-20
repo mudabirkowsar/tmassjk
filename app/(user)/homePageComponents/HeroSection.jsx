@@ -6,104 +6,90 @@ import { HiOutlineArrowLongRight, HiOutlineDocumentCheck, HiOutlineInformationCi
 
 function HeroSection() {
     return (
-        <section className="relative h-screen w-full flex flex-col justify-center items-center overflow-hidden">
-            
-            {/* --- 1. MULTI-LAYERED BACKGROUND --- */}
+        <section className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-[#FAF9F6]">
+
+            {/* --- 1. MINIMALIST BACKGROUND --- */}
             <div className="absolute inset-0 z-0">
-                {/* Background Image */}
-                <img 
-                    src="/bg/bgimg.jpg" 
-                    alt="Kashmir Valley Heritage" 
-                    className="w-full h-full object-cover"
-                />
-                
-                {/* Brand Overlay */}
-                <div className="absolute inset-0 bg-[#002d1a]/85 mix-blend-multiply"></div>
-                
-                {/* Gradient Overlay for Text Readability */}
-                <div className="absolute inset-0 bg-gradient-to-b from-[#1a2e26]/90 via-[#1a2e26]/40 to-[#FAF9F6]/10"></div>
-                
-                {/* Subtle Grid Accent */}
-                <div className="absolute inset-0 opacity-10 bg-[linear-gradient(to_right,#ffffff_1px,transparent_1px),linear-gradient(to_bottom,#ffffff_1px,transparent_1px)] bg-[size:50px_50px]"></div>
+                {/* Subtle Geometric Pattern Overlay */}
+                {/* <div className="absolute inset-0 opacity-[0.03]"
+                    style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 30-15 30L15 30z' fill='%20%23004d30' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")` }}>
+                </div> */}
+
+                {/* Soft Radial Gradient for focus */}
+                <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>
             </div>
 
-            {/* --- 2. MAIN CONTENT (Optimized Spacing for Single Screen) --- */}
-            <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col items-center text-center h-full justify-center py-4">
-                
-                {/* Header Badge */}
-                <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 mb-4 md:mb-6">
-                    <span className="w-2 h-2 rounded-full bg-[#08B36A] animate-pulse"></span>
-                    <span className="text-[9px] md:text-xs uppercase tracking-[0.4em] font-bold text-white/90">
-                        Official Jammu & Kashmir Board
-                    </span>
-                </div>
+            {/* --- 2. MAIN CONTENT --- */}
+            <div className="relative z-10 max-w-7xl mx-auto px-6 flex flex-col items-center text-center h-full justify-center py-6">
 
-                {/* Arabic Calligraphy */}
-                <div className="relative mb-2 md:mb-4 group">
-                    <h2 className="text-4xl md:text-6xl lg:text-7xl text-white font-serif font-medium leading-tight drop-shadow-lg">
-                        اللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ
+                {/* Arabic Calligraphy (Styled for Light Mode) */}
+                <div className="relative mb-6">
+                    <h2 className="text-4xl md:text-6xl lg:text-7xl text-emerald-900/20 font-serif font-medium leading-tight select-none">
+                        اَللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَآلِ مُحَمَّدٍ
                     </h2>
-                    <div className="absolute -inset-4 bg-brand-primary/20 blur-3xl rounded-full opacity-40"></div>
+                    {/* Secondary visible layer */}
+                    <h2 className="absolute inset-0 text-4xl md:text-6xl lg:text-7xl text-emerald-800 font-serif font-medium leading-tight drop-shadow-sm opacity-90">
+                        اَللَّهُمَّ صَلِّ عَلَى مُحَمَّدٍ وَآلِ مُحَمَّدٍ
+                    </h2>
                 </div>
 
                 {/* Main Heading */}
-                <h1 className="text-3xl md:text-5xl lg:text-7xl font-serif font-bold text-white leading-[1.1] tracking-tight mb-4 md:mb-6 max-w-5xl">
+                <h1 className="text-4xl md:text-6xl lg:text-8xl font-serif font-bold text-slate-900 leading-[1.1] tracking-tight mb-6 max-w-5xl">
                     Tanzeem-ul-Madaris <br />
-                    <span className="italic text-brand-card-green">Ahle Sunnat Sufi</span>
+                    <span className="text-emerald-700 italic">Ahle Sunnat Sufi</span>
                 </h1>
 
                 {/* Sub-heading */}
-                <p className="text-sm md:text-lg lg:text-xl text-white/80 max-w-3xl font-medium leading-relaxed mb-8 md:mb-12 px-4">
-                    A visionary movement for educational transformation—harmonizing spiritual 
-                    depth with modern academic excellence across the Valley.
+                <p className="text-base md:text-xl text-slate-600 max-w-2xl font-medium leading-relaxed mb-10 px-4">
+                    Preserving heritage, empowering futures. A visionary movement for
+                    educational transformation harmonizing spiritual wisdom with academic excellence.
                 </p>
 
                 {/* --- 3. CTA BUTTONS --- */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-2xl px-4 mb-10 md:mb-16">
-                    
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full max-w-2xl px-4 mb-20">
+
                     {/* Primary Button */}
-                    <Link 
-                        href="/affiliationform" 
-                        className="w-full sm:w-auto px-8 py-3.5 bg-brand-primary text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-brand-secondary transition-all shadow-xl hover:scale-105 active:scale-95 group text-sm md:text-base"
+                    <Link
+                        href="/affiliationform"
+                        className="w-full sm:w-auto px-10 py-4 bg-emerald-800 text-white rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-emerald-900 transition-all shadow-xl shadow-emerald-900/10 hover:scale-[1.02] active:scale-95 group text-sm md:text-base"
                     >
-                        <HiOutlineDocumentCheck size={20} />
+                        <HiOutlineDocumentCheck size={22} />
                         Apply for Affiliation
-                        <HiOutlineArrowLongRight className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all duration-300" />
+                        <HiOutlineArrowLongRight className="transition-transform group-hover:translate-x-1" />
                     </Link>
 
                     {/* Secondary Button */}
-                    <Link 
-                        href="/aboutus" 
-                        className="w-full sm:w-auto px-8 py-3.5 bg-white/10 backdrop-blur-xl border border-white/30 text-white rounded-xl font-bold flex items-center justify-center gap-3 hover:bg-white hover:text-brand-primary transition-all shadow-lg hover:scale-105 active:scale-95 group text-sm md:text-base"
+                    <Link
+                        href="/aboutus"
+                        className="w-full sm:w-auto px-10 py-4 bg-white border border-slate-200 text-slate-700 rounded-2xl font-bold flex items-center justify-center gap-3 hover:bg-slate-50 transition-all shadow-sm hover:scale-[1.02] active:scale-95 group text-sm md:text-base"
                     >
-                        <HiOutlineInformationCircle size={20} />
+                        <HiOutlineInformationCircle size={22} />
                         Our Journey
-                        <HiOutlineArrowLongRight className="opacity-0 group-hover:opacity-100 -ml-4 group-hover:ml-0 transition-all duration-300" />
                     </Link>
                 </div>
 
-                {/* --- BOTTOM STATS (Anchored at the bottom) --- */}
-                <div className="grid grid-cols-3 gap-6 md:gap-16 text-white/60">
-                   <div className="flex flex-col">
-                        <span className="text-xl md:text-3xl font-serif font-bold text-white">49+</span>
-                        <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold">Madrasas</span>
-                   </div>
-                   <div className="flex flex-col border-x border-white/10 px-6 md:px-12">
-                        <span className="text-xl md:text-3xl font-serif font-bold text-white">40+</span>
-                        <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold">Colleges</span>
-                   </div>
-                   <div className="flex flex-col">
-                        <span className="text-xl md:text-3xl font-serif font-bold text-white">3</span>
-                        <span className="text-[8px] md:text-[10px] uppercase tracking-widest font-bold">Universities</span>
-                   </div>
+                {/* --- 4. BOTTOM STATS (Refined for White BG) --- */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 w-full max-w-4xl">
+                    <div className="flex flex-col items-center md:items-start p-6 rounded-2xl bg-white shadow-sm border border-slate-100">
+                        <span className="text-3xl md:text-4xl font-serif font-bold text-emerald-800">49+</span>
+                        <span className="text-[10px] md:text-xs uppercase tracking-widest font-bold text-slate-400 mt-1">Registered Madrasas</span>
+                    </div>
+                    <div className="flex flex-col items-center md:items-start p-6 rounded-2xl bg-white shadow-sm border border-slate-100">
+                        <span className="text-3xl md:text-4xl font-serif font-bold text-emerald-800">40+</span>
+                        <span className="text-[10px] md:text-xs uppercase tracking-widest font-bold text-slate-400 mt-1">Affiliated Colleges</span>
+                    </div>
+                    <div className="flex flex-col items-center md:items-start p-6 rounded-2xl bg-white shadow-sm border border-slate-100">
+                        <span className="text-3xl md:text-4xl font-serif font-bold text-emerald-800">03</span>
+                        <span className="text-[10px] md:text-xs uppercase tracking-widest font-bold text-slate-400 mt-1">Associated Universities</span>
+                    </div>
                 </div>
 
             </div>
 
-            {/* Subtle Scroll Indicator (Optional, stays at the very bottom) */}
-            <div className="absolute bottom-4 left-1/2 -translate-x-1/2 hidden md:block">
-                <div className="w-5 h-8 rounded-full border border-white/20 flex justify-center p-1">
-                    <div className="w-1 h-1.5 bg-brand-card-green rounded-full animate-bounce"></div>
+            {/* Scroll Indicator */}
+            <div className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:block">
+                <div className="w-6 h-10 rounded-full border-2 border-slate-200 flex justify-center p-1.5">
+                    <div className="w-1 h-2 bg-emerald-600 rounded-full animate-bounce"></div>
                 </div>
             </div>
         </section>
