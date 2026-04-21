@@ -35,13 +35,13 @@ function Footer() {
                             with modern academic sciences across Jammu & Kashmir since 2011.
                         </p>
                         <div className="flex gap-4">
-                            <Link href="#" className="p-2.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
+                            <Link href="https://www.facebook.com/share/1BJUNHGJrf/?mibextid=wwXIfr" className="p-2.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
                                 <FaFacebookF size={18} />
                             </Link>
-                            <Link href="#" className="p-2.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
+                            <Link href="https://www.facebook.com/share/1BJUNHGJrf/?mibextid=wwXIfr" className="p-2.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
                                 <FaTwitter size={18} />
                             </Link>
-                            <Link href="#" className="p-2.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
+                            <Link href="https://www.instagram.com/tanzeem.ul.madaris.sufii.jk?igsh=MXBheWs0M2lscjh1ag==" className="p-2.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
                                 <FaInstagram size={18} />
                             </Link>
                             <Link href="#" className="p-2.5 bg-white/10 rounded-full hover:bg-white/20 transition-colors">
@@ -99,7 +99,7 @@ function Footer() {
                             </div>
                             <div className="flex items-center gap-4 text-white/70">
                                 <HiEnvelope size={20} className="text-brand-accent shrink-0" />
-                                <p className="text-sm">info@ahlesunnatjk.org</p>
+                                <p className="text-sm">tanzeemulmadarissahlesunnatsufi@gmail.com</p>
                             </div>
                         </div>
                     </div>

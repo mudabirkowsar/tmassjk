@@ -46,7 +46,7 @@ function Founder() {
                     {/* STATS ROW */}
                     <div className="flex flex-wrap items-center gap-8 md:gap-12 mb-12">
                         <div className="flex flex-col">
-                            <span className="text-3xl font-bold text-brand-primary">50+ Years</span>
+                            <span className="text-3xl font-bold text-brand-primary">35+ Years</span>
                             <span className="text-xs uppercase tracking-tighter font-bold text-brand-gray opacity-70">
                                 Academic Service
                             </span>

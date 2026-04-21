@@ -5,8 +5,8 @@ import {
   GraduationCap, 
   School, 
   ArrowRight, 
-  History,
-  Award
+  Award,
+  Layers
 } from 'lucide-react';
 
 const OurMission = () => {
@@ -81,14 +81,13 @@ const OurMission = () => {
                 </div>
               <h3 className="text-xl font-bold mb-4">Madrasas Registered</h3>
               <p className="text-gray-400 text-sm leading-relaxed">
-                Successfully registered with NIOS (National Institute of Open Schooling) during 2017-18, standardizing religious frameworks.
+                Successfully registered with NIOS during 2017-18, standardizing religious frameworks within national education standards.
               </p>
             </div>
-            {/* Aesthetic Background Shape */}
             <div className="absolute -right-8 -bottom-8 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-[#b38b59]/20 transition-colors"></div>
           </div>
 
-          {/* Card 2: Universities */}
+          {/* Card 2: Universities (The Source) */}
           <div className="bg-white p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/50 hover:-translate-y-2 transition-all duration-300 relative overflow-hidden group">
             <div className="relative z-10">
               <div className="bg-[#1a2e26]/5 w-14 h-14 rounded-xl flex items-center justify-center mb-12 group-hover:bg-[#1a2e26] transition-colors">
@@ -96,19 +95,20 @@ const OurMission = () => {
               </div>
               <div className="flex items-baseline gap-1 mb-2">
                 <span className="text-5xl font-serif font-bold text-[#1a2e26]">3</span>
+                <span className="text-brand-primary text-xl font-bold ml-2">Main Hubs</span>
               </div>
-              <h3 className="text-xl font-bold mb-4 text-[#1a2e26]">Partner Universities</h3>
+              <h3 className="text-xl font-bold mb-4 text-[#1a2e26]">University Adoption</h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Sufi syllabus introduced in <span className="font-semibold">Kashmir University, BGSBU,</span> and <span className="font-semibold">IUST Awantipora</span> to bridge academia.
+                The Sufi syllabus was officially introduced at <span className="font-semibold">Kashmir University, BGSBU,</span> and <span className="font-semibold">IUST Awantipora</span>.
               </p>
             </div>
           </div>
 
-          {/* Card 3: Colleges */}
+          {/* Card 3: Affiliated Colleges (The Extension) */}
           <div className="bg-white p-10 rounded-3xl border border-gray-100 shadow-xl shadow-gray-200/50 hover:-translate-y-2 transition-all duration-300 relative overflow-hidden group">
             <div className="relative z-10">
               <div className="bg-brand-primary/10 w-14 h-14 rounded-xl flex items-center justify-center mb-12 group-hover:bg-brand-primary transition-colors">
-                <BookOpen className="w-7 h-7 text-brand-primary group-hover:text-white transition-colors" />
+                <Layers className="w-7 h-7 text-brand-primary group-hover:text-white transition-colors" />
               </div>
               <div className="flex items-baseline gap-1 mb-2">
                 <span className="text-5xl font-serif font-bold text-[#1a2e26]">40</span>
@@ -116,14 +116,18 @@ const OurMission = () => {
               </div>
               <h3 className="text-xl font-bold mb-4 text-[#1a2e26]">Affiliated Colleges</h3>
               <p className="text-gray-600 text-sm leading-relaxed">
-                Teachings of Sufism and mysticism incorporated into college curricula across the entirety of Jammu & Kashmir.
+                Consequently reaching over <span className="font-semibold text-brand-primary">40 colleges</span> affiliated with these universities, implementing the curriculum across J&K.
               </p>
+            </div>
+            {/* Visual indicator of connection */}
+            <div className="absolute top-4 right-4 opacity-10 group-hover:opacity-30 transition-opacity">
+                <ArrowRight className="w-12 h-12 -rotate-45" />
             </div>
           </div>
 
         </div>
 
-        {/* --- BOTTOM CTA: Modern Standards --- */}
+        {/* --- BOTTOM CTA --- */}
         <div className="mt-16 flex flex-col md:flex-row items-center justify-between p-8 md:p-12 bg-white rounded-[32px] border border-gray-100 shadow-sm">
             <div className="flex items-center gap-6 mb-6 md:mb-0">
                 <div className="hidden sm:flex bg-[#b38b59]/10 p-4 rounded-full">
@@ -131,7 +135,7 @@ const OurMission = () => {
                 </div>
                 <div>
                     <h4 className="text-xl font-bold text-[#1a2e26]">Standardizing Education</h4>
-                    <p className="text-gray-500">Meeting modern academic requirements for a pressing necessity.</p>
+                    <p className="text-gray-500">Bridging the gap between traditional Sufi values and modern academic excellence.</p>
                 </div>
             </div>
             <Link href="/curriculum" className="w-full md:w-auto text-center px-8 py-4 bg-[#1a2e26] text-white rounded-xl font-bold hover:bg-[#2a4a3d] transition-colors shadow-lg shadow-[#1a2e26]/20">

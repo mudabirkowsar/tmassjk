@@ -18,13 +18,6 @@ const foundingScholars = [
     bio: "A distinguished scholar instrumental in the initial intellectual framework of the movement in South Kashmir."
   },
   {
-    name: "Asadullah Misbahi",
-    location: "Srinagar",
-    role: "Founding Member",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?q=80&w=1000&auto=format&fit=crop",
-    bio: "Expert in traditional theology who helped bridge the gap between classical Madrasa learning and modern academic requirements."
-  },
-  {
     name: "Pir Syed Hamidullah Haqqani",
     location: "Central Kashmir",
     role: "Founding Member",
@@ -42,16 +35,28 @@ const foundingScholars = [
 
 const coreMembers = [
   {
-    name: "Abdul Rashid Sheikh ",
-    phone: "+91 8082781165",
-    address: "Mirgund Khanabal, Anantnag, J&K",
-    image: "/founderandother/abdulrasheed.jpg"
+    name: "Farooq Ahmed Mir",
+    phone: "+91 70518 00898",
+    address: "Monghal, Anantnag , J&K",
+    image: "/founderandother/farooqahmed.jpg"
+  },
+  {
+    name: "Lateef Ahmed Malik",
+    phone: "+91 7006272887",
+    address: "Parigam, Pulwama, J&K",
+    image: "/founderandother/lateefahmad.jpg"
   },
   {
     name: "Mohammad Yaseen Mir ",
     phone: "+91  7006291989",
     address: "Parigam Pulwama, J&K",
     image: "/founderandother/mohammadyaseen.jpg"
+  },
+  {
+    name: "Abdul Rashid Sheikh ",
+    phone: "+91 8082781165",
+    address: "Mirgund Khanabal, Anantnag, J&K",
+    image: "/founderandother/abdulrasheed.jpg"
   },
   {
     name: "Sameer Ahmed Bhat ",
@@ -65,18 +70,6 @@ const coreMembers = [
     address: "Zawoora, Shopian , J&K",
     image: "/founderandother/muzzafarahmad.jpg"
   },
-  {
-    name: "Farooq Ahmed Mir",
-    phone: "+91 9622044444",
-    address: "Monghal, Anantnag , J&K",
-    image: "/founderandother/farooqahmed.jpg"
-  },
-  {
-    name: "Lateef Ahmed Malik",
-    phone: "+91 7006272887",
-    address: "Parigam, Pulwama, J&K",
-    image: "/founderandother/lateefahmad.jpg"
-  }
 ];
 
 function FoundersPage() {

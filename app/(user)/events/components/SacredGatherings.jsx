@@ -44,10 +44,15 @@ function SacredGatherings() {
             Explore Events
           </button>
 
-          {/* Secondary Button */}
-          <button className="w-full sm:w-auto px-10 py-4 border border-white/40 bg-white/5 backdrop-blur-sm text-white font-medium rounded-full transition-all hover:bg-white/10 hover:border-white">
+          {/* Secondary Button - Link to PDF */}
+          <a 
+            href="/calander/calander.pdf" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-full sm:w-auto px-10 py-4 border border-white/40 bg-white/5 backdrop-blur-sm text-white font-medium rounded-full transition-all hover:bg-white/10 hover:border-white text-center inline-block"
+          >
             View Calendar
-          </button>
+          </a>
         </div>
 
       </div>
