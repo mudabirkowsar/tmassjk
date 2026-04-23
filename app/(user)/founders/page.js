@@ -100,9 +100,10 @@ function FoundersPage() {
             {/* Image Side */}
             <div className="relative h-[500px] lg:h-auto overflow-hidden group">
               <img
-                src="/founderandother/img3.jpg"
+                // src="/founderandother/img3.jpg"
+                src="/founderandother/img3.png"
                 alt="Maulvi Ashraf Gauri"
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 group-hover:scale-105"
+                className="w-full h-full object-cover  transition-all duration-1000 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-brand-primary/10 mix-blend-multiply"></div>
               <div className="absolute bottom-0 left-0 right-0 p-10 bg-gradient-to-t from-black/80 to-transparent text-white">
@@ -156,7 +157,7 @@ function FoundersPage() {
                   <img
                     src={scholar.image}
                     alt={scholar.name}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover transition-all duration-700"
                   />
                 </div>
                 <div className="absolute -bottom-2 -right-2 bg-brand-primary text-white p-3 rounded-2xl shadow-lg">
@@ -206,7 +207,7 @@ function FoundersPage() {
                     <img
                       src={member.image}
                       alt={member.name}
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                      className="w-full h-full object-cover transition-all duration-500"
                     />
                   </div>
                   <div>

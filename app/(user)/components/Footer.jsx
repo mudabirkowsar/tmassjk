@@ -99,7 +99,7 @@ function Footer() {
                             </div>
                             <div className="flex items-center gap-4 text-white/70">
                                 <HiEnvelope size={20} className="text-brand-accent shrink-0" />
-                                <p className="text-sm">tanzeemulmadarissahlesunnatsufi@gmail.com</p>
+                                <a href="mailto:tanzeemulmadarissahlesunnatsufi@gmail.com" className="text-sm">tanzeemulmadarissahlesunnatsufi@gmail.com</a>
                             </div>
                         </div>
                     </div>

@@ -15,7 +15,8 @@ function Founder() {
                     <div className="relative rounded-[32px] overflow-hidden shadow-2xl border-8 border-white">
                         {/* Replace the src with your actual image path */}
                         <img
-                            src="/founderandother/img3.jpg"
+                            src="/founderandother/img3.png"
+                            // src="/founderandother/img3.jpg"
                             alt="Maulvi Mohammad Ashraf"
                             className="w-full h-auto object-cover transform transition-transform duration-700 group-hover:scale-105"
                         />
