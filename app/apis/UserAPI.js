@@ -214,6 +214,17 @@ const UserAPI = {
             throw error.response?.data || error.message;
         }
     },
+    // 5. DELETE ALL RESULTS
+    deleteAllResults: async () => {
+        try {
+            const response = await API.delete(
+                `${API_BASE_URL}/api/result/clear-all`
+            );
+            return response.data;
+        } catch (error) {
+            throw error.response?.data || error.message;
+        }
+    },
 
     // 4. FETCH ALL RESULTS
     fetchAllResult: async () => {

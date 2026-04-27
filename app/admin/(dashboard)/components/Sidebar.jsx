@@ -19,11 +19,6 @@ import {
 
 const menuItems = [
     {
-        name: 'Manage Users',
-        path: '/admin/users',
-        icon: <HiOutlineUsers size={22} />
-    },
-    {
         name: 'Manage Institute',
         path: '/admin/institutes',
         icon: <HiOutlineAcademicCap size={22} />
@@ -42,11 +37,6 @@ const menuItems = [
         name: 'Registry Gallery',
         path: '/admin/gallery',
         icon: <HiOutlineQueueList size={22} />
-    },
-    {
-        name: 'Analytics',
-        path: '/admin/analytics',
-        icon: <HiOutlineChartBar size={22} />
     },
 ];
 
@@ -130,20 +120,6 @@ function Sidebar() {
 
                 {/* --- BOTTOM SECTION: USER & LOGOUT --- */}
                 <div className="p-4 mt-auto space-y-2">
-                    {!isCollapsed && (
-                        <div className="p-4 bg-slate-50 rounded-2xl mb-4">
-                            <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-full bg-brand-primary/10 flex items-center justify-center text-brand-primary font-bold">
-                                    AD
-                                </div>
-                                <div className="overflow-hidden">
-                                    <p className="text-xs font-bold text-slate-900 truncate">Central Admin</p>
-                                    <p className="text-[10px] text-slate-400 truncate">admin@tanzeem.org</p>
-                                </div>
-                            </div>
-                        </div>
-                    )}
-
                     <button
                         onClick={() => setShowLogoutModal(true)}
                         className={`

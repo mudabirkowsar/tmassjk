@@ -1,9 +1,9 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { 
-  HiOutlineDocumentArrowUp, 
-  HiOutlineTrash, 
+import {
+  HiOutlineDocumentArrowUp,
+  HiOutlineTrash,
   HiOutlineMagnifyingGlass,
   HiOutlinePlus,
   HiOutlineXMark,
@@ -11,7 +11,10 @@ import {
   HiOutlineCheckCircle,
   HiOutlineDocumentText,
   HiOutlineArrowPath,
-  HiOutlineAcademicCap 
+  HiOutlineAcademicCap,
+  HiOutlineExclamationTriangle,
+  HiOutlineChevronLeft,
+  HiOutlineChevronRight
 } from "react-icons/hi2";
 import UserAPI from '../../../apis/UserAPI';
 
@@ -20,8 +23,13 @@ export default function AdminResultsPage() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isClearModalOpen, setIsClearModalOpen] = useState(false); // Warning Modal State
   const [uploading, setUploading] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
+
+  // Pagination State
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 25;
 
   // 1. Fetch all results using fetchAllResult()
   const loadData = async () => {
@@ -42,6 +50,11 @@ export default function AdminResultsPage() {
     loadData();
   }, []);
 
+  // Reset to page 1 when searching
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchTerm]);
+
   // 2. Handle CSV Upload using uploadResult(file)
   const handleUpload = async (e) => {
     e.preventDefault();
@@ -50,7 +63,7 @@ export default function AdminResultsPage() {
     try {
       setUploading(true);
       const response = await UserAPI.uploadResult(selectedFile);
-      
+
       if (response.success) {
         alert(response.message || "Results uploaded successfully");
         setIsModalOpen(false);
@@ -77,28 +90,60 @@ export default function AdminResultsPage() {
     }
   };
 
+  // 4. Handle Clear All
+  const handleClearAll = async () => {
+    try {
+      setLoading(true);
+      const response = await UserAPI.deleteAllResults();
+      if (response.success) {
+        setIsClearModalOpen(false);
+        alert(response.message);
+        loadData(); // Refresh table
+      }
+    } catch (error) {
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   // Filter results for the table view
-  const filteredResults = results.filter(r => 
+  const filteredResults = results.filter(r =>
     r.studentName.toLowerCase().includes(searchTerm.toLowerCase()) ||
     r.rollNo.includes(searchTerm) ||
     r.enrollmentNo.includes(searchTerm)
   );
 
+  // Pagination Logic
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = filteredResults.slice(indexOfFirstItem, indexOfLastItem);
+  const totalPages = Math.ceil(filteredResults.length / itemsPerPage);
+
   return (
     <div className="min-h-screen bg-[#f8fafc] p-6 md:p-10">
-      
+
       {/* HEADER */}
       <div className="max-w-7xl mx-auto mb-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <h1 className="text-3xl font-bold text-slate-800 tracking-tight">Result Console</h1>
           <p className="text-slate-500 mt-1">Manage examinations and bulk result declarations.</p>
         </div>
-        <button 
-          onClick={() => setIsModalOpen(true)}
-          className="flex items-center gap-2 px-6 py-3 bg-brand-primary text-white rounded-2xl font-bold shadow-lg shadow-brand-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
-        >
-          <HiOutlinePlus strokeWidth={2.5} /> Upload CSV Sheet
-        </button>
+        <div className="flex items-center gap-3">
+          <button
+            onClick={() => setIsModalOpen(true)}
+            className="flex items-center gap-2 px-6 py-3 bg-brand-primary text-white rounded-2xl font-bold shadow-lg shadow-brand-primary/20 hover:scale-[1.02] active:scale-[0.98] transition-all"
+          >
+            <HiOutlinePlus strokeWidth={2.5} /> Upload CSV
+          </button>
+
+          <button
+            onClick={() => setIsClearModalOpen(true)}
+            className="flex items-center gap-2 px-6 py-3 bg-red-50 text-red-600 rounded-2xl font-bold hover:bg-red-100 transition-all"
+          >
+            <HiOutlineTrash /> Clear All
+          </button>
+        </div>
       </div>
 
       {/* QUICK STATS */}
@@ -113,17 +158,20 @@ export default function AdminResultsPage() {
         <div className="p-6 border-b border-slate-100 flex items-center justify-between gap-4">
           <div className="relative flex-1 max-w-md">
             <HiOutlineMagnifyingGlass className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-400" />
-            <input 
-              type="text" 
+            <input
+              type="text"
               placeholder="Filter by Student, Roll or Enrollment..."
               className="w-full pl-12 pr-4 py-3 bg-slate-50 rounded-xl text-sm outline-none focus:ring-4 focus:ring-brand-primary/5 transition-all"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <button onClick={loadData} className="p-3 text-slate-400 hover:text-brand-primary transition-colors">
-             <HiOutlineArrowPath className={loading ? "animate-spin" : ""} />
-          </button>
+          <div className="flex items-center gap-4">
+            <span className="text-xs font-bold text-slate-400 uppercase">Page {currentPage} of {totalPages || 1}</span>
+            <button onClick={loadData} className="p-3 text-slate-400 hover:text-brand-primary transition-colors">
+              <HiOutlineArrowPath className={loading ? "animate-spin" : ""} />
+            </button>
+          </div>
         </div>
 
         <div className="overflow-x-auto">
@@ -140,10 +188,10 @@ export default function AdminResultsPage() {
             <tbody className="divide-y divide-slate-50">
               {loading ? (
                 <tr><td colSpan="5" className="px-8 py-20 text-center text-slate-300 font-serif italic">Syncing with database...</td></tr>
-              ) : filteredResults.length === 0 ? (
+              ) : currentItems.length === 0 ? (
                 <tr><td colSpan="5" className="px-8 py-20 text-center text-slate-400">No records available.</td></tr>
               ) : (
-                filteredResults.map((res) => (
+                currentItems.map((res) => (
                   <tr key={res._id} className="hover:bg-slate-50/50 transition-colors group">
                     <td className="px-8 py-5">
                       <div className="font-bold text-slate-800">{res.studentName}</div>
@@ -158,14 +206,13 @@ export default function AdminResultsPage() {
                       <div className="text-[10px] text-slate-400">Agg: {res.obtainedMarks}/800</div>
                     </td>
                     <td className="px-8 py-5 text-center">
-                      <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${
-                        res.status === 'Pass' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-red-50 text-red-600 border border-red-100'
-                      }`}>
+                      <span className={`px-4 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest ${res.status === 'Pass' ? 'bg-emerald-50 text-emerald-600 border border-emerald-100' : 'bg-red-50 text-red-600 border border-red-100'
+                        }`}>
                         {res.status}
                       </span>
                     </td>
                     <td className="px-8 py-5 text-right">
-                      <button 
+                      <button
                         onClick={() => handleDelete(res._id)}
                         className="p-3 text-slate-300 hover:text-red-500 hover:bg-red-50 rounded-2xl transition-all"
                       >
@@ -178,6 +225,47 @@ export default function AdminResultsPage() {
             </tbody>
           </table>
         </div>
+
+        {/* PAGINATION CONTROLS */}
+        {!loading && totalPages > 1 && (
+          <div className="px-8 py-6 bg-slate-50/50 border-t border-slate-100 flex items-center justify-between">
+            <p className="text-xs text-slate-500 font-medium">
+              Showing {indexOfFirstItem + 1} to {Math.min(indexOfLastItem, filteredResults.length)} of {filteredResults.length} entries
+            </p>
+            <div className="flex items-center gap-2">
+              <button
+                disabled={currentPage === 1}
+                onClick={() => setCurrentPage(prev => prev - 1)}
+                className="p-2 rounded-xl border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white transition-all"
+              >
+                <HiOutlineChevronLeft size={18} />
+              </button>
+              {[...Array(totalPages)].map((_, i) => {
+                const pageNum = i + 1;
+                // Simple logic to show current, first, last and 2 neighbors
+                if (pageNum === 1 || pageNum === totalPages || (pageNum >= currentPage - 1 && pageNum <= currentPage + 1)) {
+                  return (
+                    <button
+                      key={pageNum}
+                      onClick={() => setCurrentPage(pageNum)}
+                      className={`w-10 h-10 rounded-xl text-xs font-bold transition-all ${currentPage === pageNum ? 'bg-brand-primary text-white shadow-md shadow-brand-primary/20' : 'text-slate-500 hover:bg-white border border-transparent hover:border-slate-200'}`}
+                    >
+                      {pageNum}
+                    </button>
+                  );
+                }
+                return null;
+              })}
+              <button
+                disabled={currentPage === totalPages}
+                onClick={() => setCurrentPage(prev => prev + 1)}
+                className="p-2 rounded-xl border border-slate-200 text-slate-600 disabled:opacity-30 disabled:cursor-not-allowed hover:bg-white transition-all"
+              >
+                <HiOutlineChevronRight size={18} />
+              </button>
+            </div>
+          </div>
+        )}
       </div>
 
       {/* UPLOAD MODAL */}
@@ -196,8 +284,8 @@ export default function AdminResultsPage() {
 
             <form onSubmit={handleUpload} className="p-10">
               <div className="bg-slate-50 border-2 border-dashed border-slate-200 rounded-3xl p-12 text-center mb-8 relative group hover:border-brand-primary/30 transition-all">
-                <input 
-                  type="file" 
+                <input
+                  type="file"
                   accept=".csv"
                   onChange={(e) => setSelectedFile(e.target.files[0])}
                   className="absolute inset-0 opacity-0 cursor-pointer"
@@ -211,14 +299,14 @@ export default function AdminResultsPage() {
 
               <div className="bg-blue-50 rounded-2xl p-5 mb-8 border border-blue-100">
                 <p className="text-[10px] text-blue-700 font-black uppercase tracking-[0.2em] mb-2 flex items-center gap-2">
-                   <HiOutlineAcademicCap /> Required Columns:
+                  <HiOutlineAcademicCap /> Required Columns:
                 </p>
                 <p className="text-[11px] text-blue-600 leading-relaxed font-medium">
                   StudentName, FatherName, MotherName, EnrollmentNo, RollNo, Quran, JaamEirfan, Math, English, Science, Sst, Urdu, IT, Year.
                 </p>
               </div>
 
-              <button 
+              <button
                 type="submit"
                 disabled={uploading}
                 className="w-full py-5 bg-slate-900 text-white rounded-[20px] font-bold shadow-xl hover:bg-black transition-all flex items-center justify-center gap-3 disabled:opacity-50 active:scale-95"
@@ -230,6 +318,40 @@ export default function AdminResultsPage() {
                 )}
               </button>
             </form>
+          </div>
+        </div>
+      )}
+
+      {/* CLEAR ALL WARNING MODAL */}
+      {isClearModalOpen && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-900/70 backdrop-blur-md">
+          <div className="bg-white w-full max-w-md rounded-[40px] shadow-2xl overflow-hidden animate-in slide-in-from-bottom-8 duration-300">
+            <div className="p-10 text-center">
+              <div className="w-20 h-20 bg-red-50 text-red-500 rounded-3xl flex items-center justify-center mx-auto mb-6 rotate-3 shadow-lg shadow-red-100">
+                <HiOutlineExclamationTriangle size={40} />
+              </div>
+              <h2 className="text-2xl font-bold text-slate-900 tracking-tight mb-2">Critical Action</h2>
+              <p className="text-slate-500 text-sm leading-relaxed mb-8 px-4">
+                You are about to permanently delete <span className="font-bold text-red-600">ALL student results</span> from the database. This action cannot be reversed.
+              </p>
+              <div className="flex flex-col gap-3">
+                <button
+                  onClick={handleClearAll}
+                  className="w-full py-4 bg-red-600 text-white rounded-2xl font-bold shadow-xl shadow-red-200 hover:bg-red-700 transition-all active:scale-95"
+                >
+                  Yes, Wipe All Data
+                </button>
+                <button
+                  onClick={() => setIsClearModalOpen(false)}
+                  className="w-full py-4 bg-slate-100 text-slate-600 rounded-2xl font-bold hover:bg-slate-200 transition-all"
+                >
+                  Cancel, Keep Records
+                </button>
+              </div>
+            </div>
+            <div className="bg-slate-50 px-10 py-4 text-center">
+              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-[0.2em]">Authorized Admin Access Only</p>
+            </div>
           </div>
         </div>
       )}
