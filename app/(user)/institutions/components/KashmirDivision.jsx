@@ -1,37 +1,51 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { HiOutlineArrowRight } from "react-icons/hi2";
-
-const kashmirData = [
-    { name: "Kashmir University", location: "Srinagar", district: "Srinagar", type: "University" },
-    { name: "IUST Awantipora", location: "Awantipora", district: "Pulwama", type: "University" },
-    { name: "Darul Uloom Haganiya Soibugh", location: "Soibugh", district: "Budgam", type: "Madrasa" },
-    { name: "Darul-Uloom Qurieshi Sheeri", location: "Sheeri", district: "Baramulla", type: "Madrasa" },
-    { name: "Markazul-Mariful Islamia Zadder", location: "Zadder", district: "Anantnag", type: "Madrasa" },
-    { name: "Darul-ULoom Noor-Irfan Guree", location: "Bijbehara", district: "Anantnag", type: "Madrasa" },
-    { name: "Darul-ULoom Jamia Sabriya Kanzul-Iman", location: "Zoowra", district: "Shopian", type: "Madrasa" },
-    { name: "Darul-Uloom Shah Wali-ullah", location: "Dardipora", district: "Kupwara", type: "Madrasa" },
-    { name: "Darul-Uloom-Noor-e-Anwar", location: "Phalgam", district: "Anantnag", type: "Madrasa" },
-    { name: "Madrasa/D Usman-zi-Noorian", location: "Parigam", district: "Pulwama", type: "Madrasa" },
-    { name: "Shiekh-ul-Alam Hanfiya Madrasa", location: "Guree Bijbehara", district: "Anantnag", type: "Madrasa" },
-    { name: "Madrasa Gousul Qadirya Rizvi", location: "Khanbal", district: "Anantnag", type: "Madrasa" },
-    { name: "Madrasa Syed Ahmad Roomi", location: "Veeri", district: "Anantnag", type: "Madrasa" },
-    { name: "Darul-Uloom Sultanul Arifeen", location: "Trichal", district: "Pulwama", type: "Madrasa" },
-    { name: "Darul-Uloom Faizain-Madina Arwah", location: "Beerwah", district: "Budgam", type: "Madrasa" },
-    { name: "Madrasa Chaar Sadnat Qasbiyar", location: "Pulwama", district: "Pulwama", type: "Madrasa" },
-    { name: "Madrasa Bazem-e Mohammida", location: "Mirgund", district: "Anantnag", type: "Madrasa" },
-    { name: "Darul-Uloom-Hanfiaya Karimiya", location: "Yaripora", district: "Kulgam", type: "Madrasa" },
-    { name: "Markaza Idra Rooma Reshi", location: "Rahmoo", district: "Pulwama", type: "Madrasa" },
-    { name: "Darul-Uloom Hanfiya Bukhariya", location: "Alamgung", district: "Shopian", type: "Madrasa" },
-    { name: "Jamia Hidayatul Banat", location: "Kralhar Kansipora", district: "Baramulla", type: "Madrasa" },
-    { name: "Siraj ul-Ilm Institute Of Maturidi Theology", location: "Kurigam", district: "Anantnag", type: "Academy" },
-    { name: "Darul Uloom Hazrat Almadar-e-Kashmir", location: "Buchan Shangus", district: "Anantnag", type: "Madrasa" },
-    { name: "Madrasa Kanzul Eimaan", location: "Rakhi Brah", district: "Anantnag", type: "Madrasa" }
-];
+import { Data } from '../../../assets/unidata';
+import axios from 'axios';
+import UserAPI from '../../../apis/UserAPI';
 
 export default function KashmirDivision({ searchTerm }) {
-    const filtered = kashmirData.filter(item => 
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.district.toLowerCase().includes(searchTerm.toLowerCase())
+    const [dynamicData, setDynamicData] = useState([]);
+
+    // List of districts belonging to Kashmir Division
+    const kashmirDistricts = [
+        'Srinagar', 'Anantnag', 'Baramulla', 'Budgam', 'Pulwama', 
+        'Kupwara', 'Shopian', 'Ganderbal', 'Kulgam', 'Bandipora'
+    ];
+
+    useEffect(() => {
+        const fetchVerified = async () => {
+            try {
+                const response = await UserAPI.getVerifiedAffiliations();
+                if (response?.success) {
+                    // Filter and transform dynamic data
+                    const onlyKashmir = response.data
+                        .filter(item => kashmirDistricts.includes(item.district))
+                        .map(item => ({
+                            name: item.instituteName,
+                            location: item.fullAddress,
+                            district: item.district,
+                            type: item.instituteType,
+                            division: "Kashmir" 
+                        }));
+                    setDynamicData(onlyKashmir);
+                }
+            } catch (error) {
+                console.error("Error fetching verified affiliations:", error);
+            }
+        };
+        fetchVerified();
+    }, []);
+
+    // Merge static Data with dynamic backend data
+    const combinedData = [...Data, ...dynamicData];
+
+    const filtered = combinedData.filter(item =>
+        item.division === "Kashmir" &&
+        (
+            item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.district.toLowerCase().includes(searchTerm.toLowerCase())
+        )
     );
 
     return (

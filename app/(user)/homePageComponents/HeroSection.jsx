@@ -6,14 +6,11 @@ import { HiOutlineArrowLongRight, HiOutlineDocumentCheck, HiOutlineInformationCi
 
 function HeroSection() {
     return (
-        <section className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-[#FAF9F6]">
+        // <section className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-[#FAF9F6]">
 
+        <section className="relative min-h-screen w-full flex flex-col justify-center items-center overflow-hidden bg-[#FFFFFF]">
             {/* --- 1. MINIMALIST BACKGROUND --- */}
             <div className="absolute inset-0 z-0">
-                {/* Subtle Geometric Pattern Overlay */}
-                {/* <div className="absolute inset-0 opacity-[0.03]"
-                    style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l15 30-15 30L15 30z' fill='%20%23004d30' fill-opacity='1' fill-rule='evenodd'/%3E%3C/svg%3E")` }}>
-                </div> */}
 
                 {/* Soft Radial Gradient for focus */}
                 <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-stops))] from-white via-transparent to-transparent"></div>

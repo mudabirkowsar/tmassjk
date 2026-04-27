@@ -106,7 +106,7 @@ function RegionalReach() {
                         <div className="absolute inset-0 pointer-events-none border-[20px] border-white/10 rounded-[40px]"></div>
 
                         {/* Floating Stats on Map */}
-                        <div className="absolute bottom-8 left-8 right-8 pointer-events-none">
+                        {/* <div className="absolute bottom-8 left-8 right-8 pointer-events-none">
                             <div className="bg-slate-900/90 backdrop-blur-xl p-5 rounded-2xl flex items-center justify-between border border-white/10 shadow-2xl">
                                 <div>
                                     <p className="text-slate-400 text-[9px] font-bold uppercase tracking-[0.2em] mb-1">Total Presence</p>
@@ -121,7 +121,7 @@ function RegionalReach() {
                                     ))}
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                     </div>
 
                     {/* Decorative Background Element */}

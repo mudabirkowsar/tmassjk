@@ -1,8 +1,10 @@
 import Link from 'next/link';
+import { useRouter } from 'next/link';
 import React from 'react';
 import { HiOutlineBookOpen } from "react-icons/hi2";
 
 function Founder() {
+    // const router = useRouter()
     return (
         <section className="bg-brand-background py-16 md:py-24 px-6 md:px-12 lg:px-20">
             <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
@@ -66,7 +68,7 @@ function Founder() {
 
                     {/* BUTTON */}
                     <div>
-                        <Link href='/' className="inline-flex items-center gap-3 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#1e293b] px-8 py-4 rounded-xl font-bold transition-all transform active:scale-95 shadow-sm">
+                        <Link href='/biography' className="inline-flex items-center gap-3 bg-[#f1f5f9] hover:bg-[#e2e8f0] text-[#1e293b] px-8 py-4 rounded-xl font-bold transition-all transform active:scale-95 shadow-sm">
                             <HiOutlineBookOpen className="text-xl" />
                             Read the Full Biography
                         </Link>

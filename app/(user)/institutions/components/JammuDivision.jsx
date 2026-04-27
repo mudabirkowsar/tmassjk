@@ -1,40 +1,14 @@
 import React from 'react';
 import { HiOutlineArrowRight } from "react-icons/hi2";
-
-const jammuData = [
-    { name: "Jamia Usmania Madrasa Bontalab Jammu", location: "Bontalab", district: "Jammu", type: "Madrasa" },
-    { name: "Madrasa Taleem-ul Quran Faizan Madina", location: "Doda City", district: "Doda", type: "Madrasa" },
-    { name: "Darul-Uloom-Raza-E-Mustafa Al-Mandi", location: "Mandi", district: "Poonch", type: "Madrasa" },
-    { name: "Darul-ULoom Gousia Nizamia Mehander", location: "Mehander", district: "Poonch", type: "Madrasa" },
-    { name: "Madrasa Qadriya Bonch", location: "Bonch", district: "Poonch", type: "Madrasa" },
-    { name: "Madrasa Anwar-ul-Quran", location: "Doda City", district: "Doda", type: "Madrasa" },
-    { name: "Madrasa Jala-ul-Quran", location: "Doda City", district: "Doda", type: "Madrasa" },
-    { name: "Jamia Raza-Ull-Mustafa Darhal", location: "Darhal", district: "Rajouri", type: "Madrasa" },
-    { name: "Darul-uloom Jeelania Hussaina Islamabad", location: "Islamabad", district: "Poonch", type: "Madrasa" },
-    { name: "Darul-Uloom Zia-ul Islam Loran Mandi", location: "Loran Mandi", district: "Poonch", type: "Madrasa" },
-    { name: "Jamia Madina Tul-Islam Seri Chowhana", location: "Seri Chowhana", district: "Poonch", type: "Madrasa" },
-    { name: "Jamia Fatima Tuz-Zehra Dingla Haveli", location: "Dingla", district: "Poonch", type: "Madrasa" },
-    { name: "Madrasa Ashrafiya Noor-Ul-Islam Khanetar", location: "Khanetar", district: "Poonch", type: "Madrasa" },
-    { name: "Jamia Anwarul-Uloom City Poonch", location: "City Poonch", district: "Poonch", type: "Madrasa" },
-    { name: "Madrasa Moiniya Nizamia Thana Mandi", location: "Thana Mandi", district: "Rajouri", type: "Madrasa" },
-    { name: "Madrasa Raza ul Islam Markazi Jamia Masjid", location: "Tehsil Mandi", district: "Poonch", type: "Madrasa" },
-    { name: "Darul-Uloom Raziva Sultania Surnkote", location: "Surankote", district: "Poonch", type: "Madrasa" },
-    { name: "Darul-Ulcom-Mujadid-Al-fisani Bhatandi", location: "Bhatandi", district: "Jammu", type: "Madrasa" },
-    { name: "Jamia Gulshani-Fatima", location: "Rajouri City", district: "Rajouri", type: "Madrasa" },
-    { name: "Jamia Mohmoodia Rahat-uloom", location: "Rajouri City", district: "Rajouri", type: "Madrasa" },
-    { name: "Darul uloom Raza-e-Mustfa Markazi AlaPeer", location: "Mandi", district: "Poonch", type: "Madrasa" },
-    { name: "Madrasa Zia ul Quran Trarnwali Bufliaz", location: "Surankote", district: "Poonch", type: "Madrasa" },
-    { name: "Darul Uloom Riziviya Ashrafiya", location: "Rajouri City", district: "Rajouri", type: "Madrasa" },
-    { name: "Madrasa Jamia Zia Ul Quran Kallar Kattal", location: "Surankote", district: "Poonch", type: "Madrasa" },
-    { name: "Model institute Of Education Sanai", location: "Surankote", district: "Poonch", type: "Institute" },
-    { name: "Darul uloom Payam -E- Raza Zero Mor", location: "Talwari", district: "Reasi", type: "Madrasa" },
-    { name: "Jamia Raza ul Islam Markazi Jamia Masjid", location: "Teshil Mandi", district: "Poonch", type: "Madrasa" }
-];
+import { Data } from '../../../assets/unidata';
 
 export default function JammuDivision({ searchTerm }) {
-    const filtered = jammuData.filter(item => 
-        item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        item.district.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = Data.filter(item =>
+        item.division === "Jammu" &&
+        (
+            item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            item.district.toLowerCase().includes(searchTerm.toLowerCase())
+        )
     );
 
     return (

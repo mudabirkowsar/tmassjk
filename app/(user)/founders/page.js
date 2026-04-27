@@ -14,21 +14,21 @@ const foundingScholars = [
     name: "Maulana Mushtaq Ahmad Khan",
     location: "Anantnag",
     role: "Founding Member",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1000&auto=format&fit=crop",
+    image: "/founderandother/mushtaqahkhan.png",
     bio: "A distinguished scholar instrumental in the initial intellectual framework of the movement in South Kashmir."
   },
   {
     name: "Pir Syed Hamidullah Haqqani",
     location: "Central Kashmir",
     role: "Founding Member",
-    image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=1000&auto=format&fit=crop",
+    image: "/founderandother/pirsyed.png",
     bio: "Provided the spiritual and administrative guidance necessary to establish a region-wide educational network."
   },
   {
     name: "Mufti Aslam Misbahi",
     location: "Jammu",
     role: "Founding Member",
-    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=1000&auto=format&fit=crop",
+    image: "/founderandother/muftiaslam.png",
     bio: "Led the movement's expansion into the Jammu region, ensuring a unified syllabus across diverse geographies."
   }
 ];
@@ -45,6 +45,12 @@ const coreMembers = [
     phone: "+91 7006272887",
     address: "Parigam, Pulwama, J&K",
     image: "/founderandother/lateefahmad.jpg"
+  },
+  {
+    name: "Mohd Younis Dar",
+    phone: "+91 9797117754",
+    address: "Zradipora, Anantnag, J&K",
+    image: "/founderandother/mohdyounis.png"
   },
   {
     name: "Mohammad Yaseen Mir ",

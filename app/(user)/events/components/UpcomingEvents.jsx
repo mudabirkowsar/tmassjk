@@ -1,136 +1,117 @@
-import React from 'react';
-import Link from 'next/link';
-import { HiMapPin, HiClock, HiArrowRight, HiUserGroup } from "react-icons/hi2";
+'use client';
 
-// Mock data following your Mongoose Schema structure
-const events = [
-  {
-    _id: "1",
-    name: "Eid Milad-un-Nabi ﷺ Gathering",
-    description: "A grand spiritual gathering to celebrate the birth of the Prophet ﷺ with recitations and lectures.",
-    eventLocation: "Srinagar Jama Masjid",
-    eventDateAndTime: "2024-09-27T18:30:00",
-    islamicDate: "12 Rabi-ul-Awwal",
-    scholars: "Maulana Mushtaq Khan, Mufti Aslam Misbahi",
-    images: ["https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&q=80&w=800"],
-  },
-  {
-    _id: "2",
-    name: "Annual Urs Hazrat Sheikh Noor-ud-din Wali",
-    description: "Annual commemoration of the patron saint of Kashmir focusing on his Sufi poetry and teachings.",
-    eventLocation: "Charar-e-Sharif, Kashmir",
-    eventDateAndTime: "2024-04-15T10:00:00",
-    islamicDate: "26 Rajab",
-    scholars: "Pir Syed Hamidullah, Maulana Ashraf Gauri",
-    images: ["https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=800"],
-  },
-  {
-    _id: "3",
-    name: "Ramadan Spiritual Workshop",
-    description: "A deep dive into the essence of fasting and spiritual purification.",
-    eventLocation: "Jammu Islamic Center",
-    eventDateAndTime: "2024-03-01T14:00:00",
-    islamicDate: "20 Shaban",
-    scholars: "Dr. Ahmed Qadri",
-    images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRes4IjoaoKQvkzoUw7ssb-rdT4TzzHBFQeQQ&s"],
-  },
-];
+import React, { useState, useEffect } from 'react';
+import Link from 'next/link';
+import {
+  HiMapPin,
+  HiClock,
+  HiArrowRight,
+  HiUserGroup,
+  HiCalendarDays,
+  HiXMark,
+  HiOutlineInformationCircle
+} from "react-icons/hi2";
+import UserAPI from '../../../apis/UserAPI';
 
 function UpcomingEvents() {
+  const [events, setEvents] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
-  // Helper to format Date from Mongoose Schema
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const day = date.getDate();
-    const month = date.toLocaleString('default', { month: 'short' }).toUpperCase();
-    const time = date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    return { day, month, time };
+  useEffect(() => {
+    fetchUpcomingEvents();
+  }, []);
+
+  const fetchUpcomingEvents = async () => {
+    try {
+      setLoading(true);
+      const data = await UserAPI.getAllEvents();
+      // Show only first 3 for "Upcoming" section
+      setEvents(data.slice(0, 3));
+    } catch (err) {
+      setError("Unable to load upcoming events.");
+    } finally {
+      setLoading(false);
+    }
   };
 
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return {
+      day: date.getDate(),
+      month: date.toLocaleString('default', { month: 'short' }).toUpperCase(),
+      year: date.getFullYear(),
+      time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      full: date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+    };
+  };
+
+  if (loading) {
+    return (
+      <div className="bg-[#f8fafc] py-20 flex flex-col items-center justify-center">
+        <div className="w-10 h-10 border-4 border-brand-primary/10 border-t-brand-primary rounded-full animate-spin"></div>
+        <p className="mt-4 text-slate-400 text-[10px] font-bold uppercase tracking-[0.2em]">Retrieving Registry...</p>
+      </div>
+    );
+  }
+
   return (
-    <section className="bg-brand-background py-12 md:py-20 px-4 md:px-12 lg:px-20">
+    <section className="bg-[#f8fafc] py-16 md:py-24 px-6 md:px-12 lg:px-20 relative">
       <div className="max-w-7xl mx-auto">
 
-        {/* --- SECTION HEADER --- */}
-        <div className="flex justify-between items-end mb-8 md:mb-12 border-b border-gray-100 pb-4 md:pb-6">
+        {/* --- HEADER --- */}
+        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-12 gap-6">
           <div>
-            <h2 className="text-2xl md:text-4xl font-serif text-brand-primary font-bold mb-2">
-              Upcoming Events
+            <div className="flex items-center gap-2 mb-3">
+              <span className="w-8 h-[2px] bg-brand-primary"></span>
+              <span className="text-brand-primary font-bold text-xs uppercase tracking-[0.3em]">Registry</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-serif text-slate-900 tracking-tight">
+              Upcoming <span className="text-brand-primary">Events</span>
             </h2>
-            <div className="h-1 w-12 md:h-1.5 md:w-20 bg-brand-accent rounded-full"></div>
           </div>
-
-          <Link href="/events" className="flex items-center gap-1 md:gap-2 text-brand-primary font-bold text-sm md:text-base hover:gap-3 transition-all">
-            View All <HiArrowRight />
+          <Link href="/events" className="group flex items-center gap-3 bg-white border border-slate-200 text-slate-900 px-6 py-3 rounded-2xl font-bold text-sm hover:border-brand-primary hover:text-brand-primary transition-all shadow-sm">
+            Explore All <HiArrowRight className="group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        {/* --- EVENTS GRID --- */}
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 md:gap-8 lg:gap-10">
+        {/* --- GRID --- */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {events.map((event) => {
-            const { day, month, time } = formatDate(event.eventDateAndTime);
-
+            const { day, month, year, time } = formatDate(event.eventDateAndTime);
             return (
-              <div
-                key={event._id}
-                className="bg-white rounded-2xl md:rounded-[32px] overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 flex flex-col group"
-              >
-                {/* IMAGE & DATE BADGES */}
-                <div className="relative aspect-video md:h-64 overflow-hidden">
-                  <img
-                    src={event.images[0]} // Taking first image from schema array
-                    alt={event.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  />
-
-                  {/* English Date Overlay */}
-                  <div className="absolute top-2 left-2 md:top-5 md:left-5 bg-brand-primary text-white p-1.5 md:p-3 rounded-lg md:rounded-2xl min-w-[40px] md:min-w-[65px] flex flex-col items-center shadow-lg z-10">
-                    <span className="text-sm md:text-2xl font-bold leading-none">{day}</span>
-                    <span className="text-[7px] md:text-[10px] font-bold tracking-widest mt-0.5 md:mt-1 opacity-80">{month}</span>
+              <div key={event._id} className="group bg-white rounded-[32px] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img src={event.images[0]} alt={event.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                  <div className="absolute top-5 left-5 bg-white/95 backdrop-blur-md shadow-xl rounded-2xl p-3 min-w-[65px] text-center border border-white/20">
+                    <span className="block text-2xl font-black text-slate-900 leading-none">{day}</span>
+                    <span className="block text-[10px] font-bold uppercase tracking-widest mt-1 text-brand-primary">{month}</span>
                   </div>
-
-                  {/* Islamic Date Overlay (Optional Badge) */}
                   {event.islamicDate && (
-                    <div className="absolute bottom-2 left-2 md:bottom-4 md:left-4 bg-white/90 backdrop-blur-sm text-brand-primary px-2 py-1 md:px-3 md:py-1.5 rounded-full text-[8px] md:text-xs font-bold border border-brand-primary/20">
-                      🌙 {event.islamicDate}
+                    <div className="absolute bottom-4 right-4 bg-slate-900/60 backdrop-blur-md text-white px-4 py-1.5 rounded-full text-[10px] font-bold border border-white/10 uppercase tracking-wider">
+                      {event.islamicDate}
                     </div>
                   )}
                 </div>
 
-                {/* CARD CONTENT */}
-                <div className="p-3 md:p-8 flex flex-col flex-grow">
-                  {/* Event Name */}
-                  <h3 className="text-sm md:text-2xl font-serif font-bold text-[#1e293b] mb-2 md:mb-4 leading-tight line-clamp-2">
-                    {event.name}
-                  </h3>
+                <div className="p-8 flex flex-col flex-grow">
+                  <h3 className="text-xl font-serif font-bold text-slate-900 mb-6 line-clamp-2">{event.name}</h3>
 
-                  {/* Description (Visible on Desktop) */}
-                  <p className="hidden md:block text-gray-500 text-sm mb-6 line-clamp-2">
-                    {event.description}
-                  </p>
-
-                  {/* Event Details */}
-                  <div className="space-y-1.5 md:space-y-3 mb-4 md:mb-8">
-                    {/* Location */}
-                    <div className="flex items-center gap-1.5 md:gap-3 text-brand-gray text-[10px] md:text-sm font-medium">
-                      <HiMapPin className="text-brand-accent text-xs md:text-lg shrink-0" />
-                      <span className="truncate">{event.eventLocation}</span>
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-center gap-3 text-slate-600 text-sm font-medium">
+                      <HiMapPin className="text-brand-primary" /> {event.eventLocation}
                     </div>
-                    {/* Time */}
-                    <div className="flex items-center gap-1.5 md:gap-3 text-brand-gray text-[10px] md:text-sm font-medium">
-                      <HiClock className="text-brand-accent text-xs md:text-lg shrink-0" />
-                      <span className="truncate">{time}</span>
-                    </div>
-                    {/* Scholars */}
-                    <div className="flex items-center gap-1.5 md:gap-3 text-brand-gray text-[10px] md:text-sm font-medium">
-                      <HiUserGroup className="text-brand-accent text-xs md:text-lg shrink-0" />
-                      <span className="truncate italic">{event.scholars}</span>
+                    <div className="flex items-center gap-3 text-slate-600 text-sm font-medium">
+                      <HiClock className="text-brand-primary" /> {time} • {year}
                     </div>
                   </div>
 
-                  {/* ACTION BUTTON */}
-                  <button className="mt-auto w-full py-2 md:py-4 bg-[#f1f5f9] hover:bg-brand-primary hover:text-white text-brand-primary text-[10px] md:text-base font-bold rounded-lg md:rounded-2xl transition-all duration-300">
-                    Details & Registration
+                  <button
+                    onClick={() => setSelectedEvent(event)}
+                    className="mt-auto w-full py-4 bg-slate-50 hover:bg-brand-primary text-brand-primary hover:text-white text-sm font-bold rounded-2xl transition-all duration-300 border border-slate-100 hover:border-brand-primary"
+                  >
+                    View Details
                   </button>
                 </div>
               </div>
@@ -138,6 +119,71 @@ function UpcomingEvents() {
           })}
         </div>
       </div>
+
+      {/* --- EVENT DETAIL MODAL --- */}
+      {selectedEvent && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 md:p-8">
+          <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-fade-in" onClick={() => setSelectedEvent(null)} />
+
+          <div className="bg-white w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-[40px] shadow-2xl relative z-10 flex flex-col md:flex-row animate-in zoom-in duration-300">
+            {/* Modal Image Section */}
+            <div className="md:w-5/12 h-64 md:h-auto relative bg-slate-100">
+              <img src={selectedEvent.images[0]} alt={selectedEvent.name} className="w-full h-full object-cover" />
+              <div className="absolute top-6 left-6 flex flex-col gap-2">
+                <span className="bg-brand-primary text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">Upcoming Event</span>
+                {selectedEvent.islamicDate && (
+                  <span className="bg-white/90 backdrop-blur text-slate-900 text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-widest shadow-lg">🌙 {selectedEvent.islamicDate}</span>
+                )}
+              </div>
+            </div>
+
+            {/* Modal Content Section */}
+            <div className="md:w-7/12 p-8 md:p-12 relative">
+              <button onClick={() => setSelectedEvent(null)} className="absolute top-6 right-6 p-2 hover:bg-slate-100 rounded-full transition-colors">
+                <HiXMark size={24} className="text-slate-400" />
+              </button>
+
+              <div className="mb-8">
+                <h2 className="text-3xl font-serif text-slate-900 mb-4 pr-8">{selectedEvent.name}</h2>
+                <div className="flex flex-wrap gap-y-4 gap-x-8 py-6 border-y border-slate-100">
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Date</span>
+                    <span className="text-sm font-bold text-slate-700">{formatDate(selectedEvent.eventDateAndTime).full}</span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Time</span>
+                    <span className="text-sm font-bold text-slate-700">{formatDate(selectedEvent.eventDateAndTime).time}</span>
+                  </div>
+                  <div className="flex flex-col gap-1">
+                    <span className="text-[10px] uppercase font-bold text-slate-400 tracking-widest">Location</span>
+                    <span className="text-sm font-bold text-slate-700">{selectedEvent.eventLocation}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-6">
+                <div>
+                  <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-brand-primary mb-3">
+                    <HiOutlineInformationCircle size={16} /> About Event
+                  </h4>
+                  <p className="text-slate-500 text-sm leading-relaxed whitespace-pre-line">{selectedEvent.description}</p>
+                </div>
+
+                <div className="p-6 bg-slate-50 rounded-3xl border border-slate-100">
+                  <h4 className="flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-slate-400 mb-3">
+                    <HiUserGroup size={16} /> Guest Scholars & Speakers
+                  </h4>
+                  <p className="text-slate-900 font-serif text-lg italic">{selectedEvent.scholars}</p>
+                </div>
+              </div>
+
+              <button onClick={() => setSelectedEvent(null)} className="w-full mt-10 py-4 bg-slate-900 text-white font-bold rounded-2xl hover:bg-brand-primary transition-colors duration-300">
+                Close Event Details
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }
