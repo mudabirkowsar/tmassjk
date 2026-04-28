@@ -1,9 +1,42 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { HiOutlineArrowRight } from "react-icons/hi2";
 import { Data } from '../../../assets/unidata';
+import UserAPI from '../../../apis/UserAPI';
 
 export default function JammuDivision({ searchTerm }) {
-    const filtered = Data.filter(item =>
+    const [dynamicData, setDynamicData] = useState([]);
+
+    // Fetch dynamic verified data from backend
+    useEffect(() => {
+        const fetchVerified = async () => {
+            try {
+                const response = await UserAPI.getVerifiedAffiliations();
+
+                // response is expected to be the data object from your UserAPI axios helper
+                if (response?.success) {
+                    // Filter based on the 'division' key being "Jammu"
+                    const onlyJammu = response.data
+                        .filter(item => item.division === "Jammu")
+                        .map(item => ({
+                            name: item.instituteName,
+                            location: item.fullAddress,
+                            district: item.district,
+                            type: item.instituteType,
+                            division: item.division // This will be "Jammu"
+                        }));
+                    setDynamicData(onlyJammu);
+                }
+            } catch (error) {
+                console.error("Error fetching verified affiliations for Jammu:", error);
+            }
+        };
+        fetchVerified();
+    }, []);
+
+    // Merge static Data with dynamic backend data (Dynamic appears after static)
+    const combinedData = [...Data, ...dynamicData];
+
+    const filtered = combinedData.filter(item =>
         item.division === "Jammu" &&
         (
             item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||

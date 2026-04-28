@@ -7,26 +7,23 @@ import UserAPI from '../../../apis/UserAPI';
 export default function KashmirDivision({ searchTerm }) {
     const [dynamicData, setDynamicData] = useState([]);
 
-    // List of districts belonging to Kashmir Division
-    const kashmirDistricts = [
-        'Srinagar', 'Anantnag', 'Baramulla', 'Budgam', 'Pulwama', 
-        'Kupwara', 'Shopian', 'Ganderbal', 'Kulgam', 'Bandipora'
-    ];
-
+    // Fetch dynamic verified data from backend
     useEffect(() => {
         const fetchVerified = async () => {
             try {
                 const response = await UserAPI.getVerifiedAffiliations();
+                
+                // response is already response.data based on your API helper structure
                 if (response?.success) {
-                    // Filter and transform dynamic data
+                    // Filter based on the 'division' key in your API response
                     const onlyKashmir = response.data
-                        .filter(item => kashmirDistricts.includes(item.district))
+                        .filter(item => item.division === "Kashmir") 
                         .map(item => ({
                             name: item.instituteName,
                             location: item.fullAddress,
                             district: item.district,
                             type: item.instituteType,
-                            division: "Kashmir" 
+                            division: item.division // This will be "Kashmir"
                         }));
                     setDynamicData(onlyKashmir);
                 }
@@ -37,7 +34,7 @@ export default function KashmirDivision({ searchTerm }) {
         fetchVerified();
     }, []);
 
-    // Merge static Data with dynamic backend data
+    // Merge static Data with dynamic backend data (Dynamic appears after static)
     const combinedData = [...Data, ...dynamicData];
 
     const filtered = combinedData.filter(item =>
