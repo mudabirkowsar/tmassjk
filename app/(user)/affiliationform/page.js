@@ -31,7 +31,7 @@ function AffiliationPortal() {
     instituteType: 'Madrasa',
     foundationDate: '',
     registrationNo: '',
-    division: '',
+    division: 'Kashmir',
     district: 'Srinagar',
     tehsil: '',
     fullAddress: '',
@@ -145,7 +145,19 @@ function AffiliationPortal() {
               />
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
                 <SelectGroup icon={<HiOutlineGlobeAlt />} label="Division" name="division" value={formData.division} onChange={handleChange} options={['Jammu', 'Kashmir']} />
-                <SelectGroup icon={<HiOutlineGlobeAlt />} label="District" name="district" value={formData.district} onChange={handleChange} options={['Srinagar', 'Anantnag', 'Baramulla', 'Jammu', 'Budgam', 'Pulwama', 'Kupwara', 'Shopian']} />
+                <SelectGroup
+                  icon={<HiOutlineGlobeAlt />}
+                  label="District"
+                  name="district"
+                  value={formData.district}
+                  onChange={handleChange}
+                  options={[
+                    'Anantnag', 'Bandipora', 'Baramulla', 'Budgam', 'Doda',
+                    'Ganderbal', 'Jammu', 'Kathua', 'Kishtwar', 'Kulgam',
+                    'Kupwara', 'Poonch', 'Pulwama', 'Rajouri', 'Ramban',
+                    'Reasi', 'Samba', 'Shopian', 'Srinagar', 'Udhampur'
+                  ]}
+                />
                 <InputGroup label="Tehsil" name="tehsil" value={formData.tehsil} onChange={handleChange} placeholder="Enter Tehsil" />
                 <InputGroup label="Pincode" name="pincode" value={formData.pincode} onChange={handleChange} placeholder="190001" />
                 <div className="md:col-span-2 lg:col-span-3">
@@ -222,8 +234,8 @@ function AffiliationPortal() {
                 type="submit"
                 disabled={!formData.agreed || loading}
                 className={`w-full md:w-auto px-12 py-4 rounded-2xl font-bold text-lg transition-all flex items-center justify-center gap-3 mx-auto ${formData.agreed && !loading
-                    ? "bg-brand-primary text-white shadow-xl shadow-brand-primary/20 hover:scale-[1.02] active:scale-[0.98]"
-                    : "bg-slate-200 text-slate-400 cursor-not-allowed"
+                  ? "bg-brand-primary text-white shadow-xl shadow-brand-primary/20 hover:scale-[1.02] active:scale-[0.98]"
+                  : "bg-slate-200 text-slate-400 cursor-not-allowed"
                   }`}
               >
                 {loading ? (
