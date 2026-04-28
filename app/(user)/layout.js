@@ -14,7 +14,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       {/* Remove any custom overflow styles from body if they exist */}
-      <body className="antialiased">
+      <body>
         <TopNavbar />
         <Navbar />
         <main>{children}</main>

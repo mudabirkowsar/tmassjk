@@ -40,11 +40,13 @@ const Navbar = () => {
             <nav className="w-full bg-white border-b border-gray-100 sticky top-0 z-[999] h-20 flex items-center isolate">
                 <div className="max-w-[1440px] mx-auto px-4 sm:px-6 md:px-12 flex items-center justify-between w-full">
 
-                    {/* LOGO */}
+                    {/* LOGO - Replaced text with image */}
                     <Link href="/" className="relative z-[1001]">
-                        <span className="logo-font text-xl md:text-2xl font-bold text-brand-primary tracking-tight">
-                            TMA Sufi J&K
-                        </span>
+                        <img
+                            src="/logo.png"
+                            alt="Logo"
+                            className="h-20 w-auto md:h-20 object-contain"
+                        />
                     </Link>
 
                     {/* DESKTOP NAV */}
@@ -55,8 +57,8 @@ const Navbar = () => {
                                     key={link.name}
                                     href={link.href}
                                     className={`text-[16px] font-semibold transition-all border-b-2 pb-1 ${pathname === link.href
-                                            ? "text-brand-primary border-brand-primary"
-                                            : "text-brand-gray border-transparent hover:text-brand-primary"
+                                        ? "text-brand-primary border-brand-primary"
+                                        : "text-brand-gray border-transparent hover:text-brand-primary"
                                         }`}
                                 >
                                     {link.name}

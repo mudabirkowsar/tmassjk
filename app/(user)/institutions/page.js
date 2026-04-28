@@ -5,14 +5,13 @@ import { HiOutlineMagnifyingGlass } from "react-icons/hi2";
 import KashmirDivision from './components/KashmirDivision';
 import JammuDivision from './components/JammuDivision';
 import Syllabus from './components/Syllabus';
-import Books from './components/Books';
 
 
 export default function AffiliatedInstitutes() {
     const [searchTerm, setSearchTerm] = useState("");
     const [activeTab, setActiveTab] = useState("Kashmir Division");
 
-    const tabs = ["Kashmir Division", "Jammu Division", "Syllabus", "Books"];
+    const tabs = ["Kashmir Division", "Jammu Division", "Syllabus",];
 
     // Logic to switch between components
     const renderContent = () => {
@@ -23,8 +22,6 @@ export default function AffiliatedInstitutes() {
                 return <JammuDivision searchTerm={searchTerm} />;
             case "Syllabus":
                 return <Syllabus searchTerm={searchTerm} />;
-            case "Books":
-                return <Books searchTerm={searchTerm} />;
             default:
                 return <KashmirDivision searchTerm={searchTerm} />;
         }
