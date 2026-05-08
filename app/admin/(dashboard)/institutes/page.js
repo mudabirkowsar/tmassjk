@@ -188,29 +188,40 @@ export default function AdminAffiliationPage() {
             </div>
 
             <div className="bg-slate-50 px-8 py-6 flex flex-wrap items-center justify-between gap-4 border-t border-slate-100">
-              <div className="flex items-center gap-3">
-                <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Update Status:</span>
-                <div className="flex gap-2">
+              {selectedApp.status === 'approved' ? (
+                <div className="w-full flex justify-end">
                   <button
-                    onClick={() => handleUpdateStatus(selectedApp._id, 'approved')}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-all shadow-lg shadow-green-200"
+                    onClick={() => setSelectedApp(null)}
+                    className="px-8 py-2.5 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-900 transition-all shadow-lg shadow-slate-200"
                   >
-                    <HiOutlineCheckCircle /> Approve
-                  </button>
-                  <button
-                    onClick={() => handleUpdateStatus(selectedApp._id, 'rejected')}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg shadow-red-200"
-                  >
-                    <HiOutlineXCircle /> Reject
-                  </button>
-                  <button
-                    onClick={() => handleUpdateStatus(selectedApp._id, 'under_review')}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-900 transition-all shadow-lg shadow-slate-200"
-                  >
-                    Reviewing
+                    Close Record
                   </button>
                 </div>
-              </div>
+              ) : (
+                <div className="flex items-center gap-3">
+                  <span className="text-sm font-bold text-slate-400 uppercase tracking-widest">Update Status:</span>
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleUpdateStatus(selectedApp._id, 'approved')}
+                      className="flex items-center gap-2 px-5 py-2.5 bg-green-600 text-white rounded-xl font-bold hover:bg-green-700 transition-all shadow-lg shadow-green-200"
+                    >
+                      <HiOutlineCheckCircle /> Approve
+                    </button>
+                    <button
+                      onClick={() => handleUpdateStatus(selectedApp._id, 'rejected')}
+                      className="flex items-center gap-2 px-5 py-2.5 bg-red-600 text-white rounded-xl font-bold hover:bg-red-700 transition-all shadow-lg shadow-red-200"
+                    >
+                      <HiOutlineXCircle /> Reject
+                    </button>
+                    <button
+                      onClick={() => handleUpdateStatus(selectedApp._id, 'under_review')}
+                      className="flex items-center gap-2 px-5 py-2.5 bg-slate-800 text-white rounded-xl font-bold hover:bg-slate-900 transition-all shadow-lg shadow-slate-200"
+                    >
+                      Reviewing
+                    </button>
+                  </div>
+                </div>
+              )}
             </div>
           </div>
         </div>

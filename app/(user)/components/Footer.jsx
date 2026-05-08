@@ -18,6 +18,13 @@ import {
 function Footer() {
     const currentYear = new Date().getFullYear();
 
+    const navItems = [
+        { name: "Home", href: "/" },
+        { name: "Our Mission", href: "/aboutus" },
+        { name: "Founder Biography", href: "/founders" },
+        { name: "Our Institutions", href: "/institutions" },
+    ];
+
     return (
         <footer className="bg-brand-primary text-white pt-16 pb-8 px-6 md:px-12 lg:px-20">
             <div className="max-w-7xl mx-auto">
@@ -52,14 +59,19 @@ function Footer() {
 
                     {/* COLUMN 2: QUICK LINKS */}
                     <div className="flex flex-col space-y-6">
-                        <h3 className="text-lg font-bold border-b border-white/10 pb-2">Quick Navigation</h3>
+                        <h3 className="text-lg font-bold border-b border-white/10 pb-2">
+                            Quick Navigation
+                        </h3>
+
                         <ul className="space-y-4">
-                            {['Home', 'Our Mission', 'Founder Biography', 'Educational Timeline', 'Our Institutions'].map((item) => (
-                                <li key={item}>
-                                    <Link href="#" className="text-white/70 hover:text-white flex items-center gap-2 group transition-all">
-                                        {/* Note: HiArrowRight instead of HiOutlineArrowRight */}
+                            {navItems.map((item) => (
+                                <li key={item.name}>
+                                    <Link
+                                        href={item.href}
+                                        className="text-white/70 hover:text-white flex items-center gap-2 group transition-all"
+                                    >
                                         <HiArrowRight className="opacity-0 -ml-4 group-hover:opacity-100 group-hover:ml-0 transition-all text-brand-accent" />
-                                        {item}
+                                        {item.name}
                                     </Link>
                                 </li>
                             ))}

@@ -14,7 +14,8 @@ import {
     HiOutlineArrowLeftOnRectangle,
     HiOutlineShieldCheck,
     HiOutlineChevronRight,
-    HiOutlineXMark
+    HiOutlineXMark,
+
 } from "react-icons/hi2";
 
 const menuItems = [
@@ -38,6 +39,11 @@ const menuItems = [
         path: '/admin/gallery',
         icon: <HiOutlineQueueList size={22} />
     },
+    // {
+    //     name: 'Register Admin',
+    //     path: '/admin/registeradmin',
+    //     icon: <HiOutlineUsers size={22} />
+    // },
 ];
 
 function Sidebar() {

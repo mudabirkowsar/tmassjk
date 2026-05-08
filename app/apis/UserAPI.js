@@ -237,7 +237,17 @@ const UserAPI = {
         } catch (error) {
             throw error.response?.data || error.message;
         }
+    },
+
+    // Add this to your apis/UserAPI.js
+registerAdmin: async (adminData) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/api/admin/register`, adminData);
+        return response.data;
+    } catch (error) {
+        throw error.response?.data || error.message;
     }
+},
 };
 
 
