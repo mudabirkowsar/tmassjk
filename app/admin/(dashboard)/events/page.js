@@ -15,6 +15,9 @@ import {
 } from "react-icons/hi2";
 import UserAPI from '../../../apis/UserAPI';
 
+// Added API Base URL constant
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 function EventsPage() {
     const [events, setEvents] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -53,6 +56,13 @@ function EventsPage() {
         } finally {
             setLoading(false);
         }
+    };
+
+    // Helper to construct the exact image URL
+    const getImageUrl = (imagePath) => {
+        if (!imagePath) return "";
+        const formattedPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+        return `${API_BASE_URL}${formattedPath}`;
     };
 
     // --- HANDLERS ---
@@ -192,7 +202,7 @@ function EventsPage() {
                                     {/* Image Container */}
                                     <div className="relative aspect-[16/11] overflow-hidden">
                                         <img
-                                            src={event.images[0]}
+                                            src={getImageUrl(event.images[0])}
                                             alt={event.name}
                                             className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
                                         />
