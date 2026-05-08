@@ -13,6 +13,9 @@ import {
 } from "react-icons/hi2";
 import UserAPI from '../../../apis/UserAPI';
 
+// Matching your exact backend URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000";
+
 function UpcomingEvents() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -45,6 +48,14 @@ function UpcomingEvents() {
       time: date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
       full: date.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
     };
+  };
+
+  // Helper to construct the exact image URL you provided
+  const getImageUrl = (imagePath) => {
+    if (!imagePath) return "";
+    // If path doesn't start with a slash, we add one to connect to API_BASE_URL
+    const formattedPath = imagePath.startsWith('/') ? imagePath : `/${imagePath}`;
+    return `${API_BASE_URL}${formattedPath}`;
   };
 
   if (loading) {
@@ -83,7 +94,11 @@ function UpcomingEvents() {
             return (
               <div key={event._id} className="group bg-white rounded-[24px] md:rounded-[32px] overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col">
                 <div className="relative aspect-[16/10] overflow-hidden">
-                  <img src={event.images[0]} alt={event.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" />
+                  <img
+                    src={getImageUrl(event.images[0])}
+                    alt={event.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000"
+                  />
                   <div className="absolute top-3 left-3 md:top-5 md:left-5 bg-white/95 backdrop-blur-md shadow-xl rounded-xl md:rounded-2xl p-2 md:p-3 min-w-[50px] md:min-w-[65px] text-center border border-white/20">
                     <span className="block text-lg md:text-2xl font-black text-slate-900 leading-none">{day}</span>
                     <span className="block text-[8px] md:text-[10px] font-bold uppercase tracking-widest mt-1 text-brand-primary">{month}</span>
@@ -122,13 +137,17 @@ function UpcomingEvents() {
 
       {/* --- RESPONSIVE EVENT DETAIL MODAL --- */}
       {selectedEvent && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-8">
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 md:p-8 md:mt-10">
           <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-md animate-fade-in" onClick={() => setSelectedEvent(null)} />
 
           <div className="bg-white w-full max-w-4xl max-h-[95vh] md:max-h-[90vh] overflow-y-auto rounded-[24px] md:rounded-[40px] shadow-2xl relative z-10 flex flex-col md:flex-row animate-in zoom-in duration-300 no-scrollbar">
             {/* Modal Image Section */}
             <div className="md:w-5/12 h-48 sm:h-64 md:h-auto relative bg-slate-100 shrink-0">
-              <img src={selectedEvent.images[0]} alt={selectedEvent.name} className="w-full h-full object-cover" />
+              <img
+                src={getImageUrl(selectedEvent.images[0])}
+                alt={selectedEvent.name}
+                className="w-full h-140 object-cover"
+              />
               <div className="absolute top-4 left-4 md:top-6 md:left-6 flex flex-col gap-2">
                 <span className="bg-brand-primary text-white text-[9px] md:text-[10px] font-bold px-2 md:px-3 py-1 rounded-full uppercase tracking-widest shadow-lg w-fit">Upcoming Event</span>
                 {selectedEvent.islamicDate && (
@@ -140,7 +159,7 @@ function UpcomingEvents() {
             {/* Modal Content Section */}
             <div className="md:w-7/12 p-6 md:p-12 relative flex flex-col">
               <button onClick={() => setSelectedEvent(null)} className="absolute top-4 right-4 md:top-6 md:right-6 p-2 bg-slate-50 hover:bg-slate-100 rounded-full transition-colors z-20">
-                <HiXMark size={20} className="text-slate-400 md:size-24" />
+                <HiXMark size={20} className="text-slate-400" />
               </button>
 
               <div className="mb-6 md:mb-8">

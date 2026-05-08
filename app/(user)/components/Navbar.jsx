@@ -107,7 +107,7 @@ const Navbar = () => {
                     className={`absolute top-0 right-0 w-[280px] sm:w-[350px] h-full bg-white shadow-2xl transition-transform duration-300 ease-in-out transform ${isOpen ? "translate-x-0" : "translate-x-full"
                         }`}
                 >
-                    <div className="flex flex-col pt-24 px-8 gap-y-6">
+                    <div className="flex flex-col pt-24 px-8 gap-y-6 mt-20">
                         {navLinks.map((link) => (
                             <Link
                                 key={link.name}

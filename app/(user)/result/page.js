@@ -61,48 +61,48 @@ export default function StudentResultPortal() {
     };
 
     return (
-        <main className="min-h-screen bg-[#fcfcfc] pb-20 font-sans print:bg-white print:pb-0">
+        <main className="min-h-screen bg-[#fcfcfc] pb-10 md:pb-20 font-sans print:bg-white print:pb-0 overflow-x-hidden">
 
             {/* HEADER - Hides on Print */}
-            <div className="bg-white border-b border-slate-200 pt-16 pb-20 px-6 text-center print:hidden">
+            <div className="bg-white border-b border-slate-200 pt-10 md:pt-16 pb-16 md:pb-20 px-4 md:px-6 text-center print:hidden">
                 <div className="max-w-4xl mx-auto">
-                    <div className="inline-flex items-center gap-2 text-brand-primary mb-4 px-4 py-1.5 bg-brand-primary/5 rounded-full">
-                        <HiOutlineCheckBadge size={20} />
-                        <span className="text-[10px] font-bold uppercase tracking-[0.2em]">Board of Examination Portal</span>
+                    <div className="inline-flex items-center gap-2 text-brand-primary mb-4 px-3 py-1.5 bg-brand-primary/5 rounded-full">
+                        <HiOutlineCheckBadge size={18} className="shrink-0" />
+                        <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-[0.2em]">Board of Examination Portal</span>
                     </div>
-                    <h1 className="text-4xl md:text-5xl font-serif font-bold text-slate-900 mb-4">
+                    <h1 className="text-3xl md:text-5xl font-serif font-bold text-slate-900 mb-3 leading-tight">
                         Search <span className="italic text-brand-primary">Student Result</span>
                     </h1>
-                    <p className="text-slate-500 max-w-xl mx-auto font-light leading-relaxed text-sm md:text-base">
-                        Enter the unique Roll Number or Enrollment Number provided by the institution to access the digital statement of marks.
+                    <p className="text-slate-500 max-w-xl mx-auto font-light leading-relaxed text-xs md:text-base px-2">
+                        Enter the unique Roll Number or Enrollment Number provided by the institution.
                     </p>
                 </div>
             </div>
 
             {/* SEARCH BOX - Hides on Print */}
-            <div className="max-w-2xl mx-auto px-6 -mt-10 print:hidden">
-                <form onSubmit={handleSearch} className="bg-white p-2.5 rounded-[28px] shadow-2xl shadow-slate-200/50 border border-slate-100 flex flex-col md:flex-row gap-3">
+            <div className="w-full max-w-2xl mx-auto px-4 md:px-6 -mt-8 md:-mt-10 print:hidden relative z-10">
+                <form onSubmit={handleSearch} className="bg-white p-2 md:p-2.5 rounded-[22px] md:rounded-[28px] shadow-xl shadow-slate-200/60 border border-slate-100 flex flex-col md:flex-row gap-2 md:gap-3">
                     <div className="relative flex-1">
-                        <div className="absolute left-5 top-1/2 -translate-y-1/2 text-slate-400">
-                            <HiOutlineMagnifyingGlass size={20} />
+                        <div className="absolute left-4 md:left-5 top-1/2 -translate-y-1/2 text-slate-400">
+                            <HiOutlineMagnifyingGlass size={18} />
                         </div>
                         <input
                             type="text"
-                            placeholder="Enter Roll No or Enrollment No"
+                            placeholder="Enter Roll No"
                             value={rollNo}
                             onChange={(e) => setRollNo(e.target.value)}
-                            className="w-full pl-14 pr-6 py-4.5 rounded-[20px] bg-slate-50 border-2 border-transparent focus:border-brand-primary/10 focus:bg-white outline-none text-slate-800 font-bold tracking-widest transition-all"
+                            className="w-full pl-11 md:pl-14 pr-4 py-3.5 md:py-4.5 rounded-[16px] md:rounded-[20px] bg-slate-50 border-2 border-transparent focus:border-brand-primary/10 focus:bg-white outline-none text-slate-800 font-bold tracking-widest transition-all text-sm md:text-base"
                         />
                     </div>
                     <button
                         type="submit"
                         disabled={loading}
-                        className="bg-brand-primary text-white px-10 py-4.5 rounded-[20px] font-bold hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-70"
+                        className="bg-brand-primary text-white px-8 md:px-10 py-3.5 md:py-4.5 rounded-[16px] md:rounded-[20px] font-bold hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2 disabled:opacity-70 text-sm md:text-base"
                     >
                         {loading ? <HiOutlineArrowPath className="animate-spin" /> : "Search Result"}
                     </button>
                 </form>
-                {error && <p className="mt-4 text-center text-red-500 text-xs font-bold uppercase tracking-wider">{error}</p>}
+                {error && <p className="mt-4 text-center text-red-500 text-[10px] font-bold uppercase tracking-wider px-4">{error}</p>}
             </div>
 
             {/* RESULT VIEWER */}
@@ -111,89 +111,89 @@ export default function StudentResultPortal() {
                     <motion.div
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        className="max-w-5xl mx-auto px-6 mt-12 print:mt-0"
+                        className="w-full max-w-5xl mx-auto px-2 md:px-6 mt-8 md:mt-12 print:mt-0"
                     >
-                        <div className="bg-white rounded-[32px] border border-slate-200 shadow-sm overflow-hidden print:border-none print:shadow-none">
+                        <div className="bg-white rounded-[24px] md:rounded-[32px] border border-slate-200 shadow-sm overflow-hidden print:border-none print:shadow-none">
 
                             {/* MARKSHEET BANNER */}
-                            <div className="bg-slate-50 px-8 md:px-12 py-10 border-b border-slate-100 flex flex-col md:flex-row justify-between items-center gap-6">
+                            <div className="bg-slate-50 px-5 md:px-12 py-6 md:py-10 border-b border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
                                 <div className="text-center md:text-left">
-                                    <h2 className="text-2xl font-serif font-bold text-slate-900 uppercase tracking-tight">Provisional Marksheet</h2>
-                                    <p className="text-brand-primary font-bold text-xs uppercase tracking-[0.2em] mt-1">Session {result.year}</p>
+                                    <h2 className="text-lg md:text-2xl font-serif font-bold text-slate-900 uppercase tracking-tight">Provisional Marksheet</h2>
+                                    <p className="text-brand-primary font-bold text-[9px] md:text-xs uppercase tracking-[0.2em] mt-1">Session {result.year}</p>
                                 </div>
                                 <button
                                     onClick={() => window.print()}
-                                    className="flex items-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-xl text-xs font-bold text-slate-600 hover:bg-slate-50 transition-all print:hidden shadow-sm"
+                                    className="w-full md:w-auto flex items-center justify-center gap-2 px-5 py-2.5 bg-white border border-slate-200 rounded-xl text-[10px] font-bold text-slate-600 hover:bg-slate-50 transition-all print:hidden shadow-sm"
                                 >
-                                    <HiOutlinePrinter /> Print Original
+                                    <HiOutlinePrinter size={14} /> Print Result
                                 </button>
                             </div>
 
                             {/* STUDENT IDENTITY SECTION */}
-                            <div className="p-8 md:p-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 bg-white">
+                            <div className="p-5 md:p-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-8 bg-white">
                                 <IdentityBox label="Student Name" value={result.studentName} icon={<HiOutlineUser />} />
                                 <IdentityBox label="Father's Name" value={result.fatherName} icon={<HiOutlineUser />} />
                                 <IdentityBox label="Mother's Name" value={result.motherName} icon={<HiOutlineHeart />} />
                                 <IdentityBox label="Roll Number" value={result.rollNo} icon={<HiOutlineDocumentText />} />
-                                <div className="lg:col-span-2">
-                                    <IdentityBox label="Enrollment Number" value={result.enrollmentNo} icon={<HiOutlineCheckBadge />} />
+                                <div className="sm:col-span-2">
+                                    <IdentityBox label="Enrollment No" value={result.enrollmentNo} icon={<HiOutlineCheckBadge />} />
                                 </div>
-                                <div className="lg:col-span-2">
+                                <div className="sm:col-span-2">
                                     <IdentityBox label="Institution" value={result.instituteName} icon={<HiOutlineBuildingLibrary />} />
                                 </div>
                             </div>
 
                             {/* SUBJECTS TABLE */}
-                            <div className="px-8 md:px-12 pb-12">
-                                <div className="overflow-x-auto">
-                                    <table className="w-full text-left">
+                            <div className="px-4 md:px-12 pb-10">
+                                <div className="w-full">
+                                    <table className="w-full table-fixed text-left border-collapse">
                                         <thead>
-                                            <tr className="border-b border-slate-100 text-[10px] font-black uppercase tracking-[0.2em] text-slate-400">
-                                                <th className="py-4 px-2">Subject Name</th>
-                                                <th className="py-4 text-center">Max Marks</th>
-                                                <th className="py-4 text-right">Marks Obtained</th>
+                                            <tr className="border-b border-slate-100 text-[9px] md:text-[10px] font-black uppercase tracking-[0.1em] text-slate-400">
+                                                <th className="py-4 px-1 w-[55%]">Subject</th>
+                                                <th className="py-4 text-center w-[20%]">Max</th>
+                                                <th className="py-4 text-right px-1 w-[25%]">Marks</th>
                                             </tr>
                                         </thead>
                                         <tbody className="divide-y divide-slate-50">
                                             {result.subjects.map((sub, i) => (
                                                 <tr key={i} className="text-slate-700">
-                                                    <td className="py-4 px-2 font-bold text-slate-800">{sub.name}</td>
-                                                    <td className="py-4 text-center font-mono text-slate-400">{sub.totalMarks}</td>
-                                                    <td className="py-4 text-right font-black text-slate-900">{sub.marksObtained}</td>
+                                                    <td className="py-3.5 px-1 font-bold text-slate-800 text-[11px] md:text-sm leading-tight">{sub.name}</td>
+                                                    <td className="py-3.5 text-center font-mono text-slate-400 text-[11px] md:text-sm">{sub.totalMarks}</td>
+                                                    <td className="py-3.5 text-right px-1 font-black text-slate-900 text-[11px] md:text-sm">{sub.marksObtained}</td>
                                                 </tr>
                                             ))}
                                             {/* AGGREGATE ROW */}
-                                            <tr className="bg-slate-900 text-white rounded-xl">
-                                                <td className="py-6 px-6 font-bold uppercase tracking-widest text-xs">Grand Total Aggregate</td>
-                                                <td className="py-6 text-center font-bold font-mono">{result.totalMax}</td>
-                                                <td className="py-6 px-6 text-right font-black text-2xl text-brand-primary">{result.obtainedMarks}</td>
+                                            <tr className="bg-slate-900 text-white">
+                                                <td className="py-4 px-3 font-bold uppercase tracking-widest text-[9px] md:text-xs rounded-l-xl">Total Aggregate</td>
+                                                <td className="py-4 text-center font-bold font-mono text-xs md:text-base">{result.totalMax}</td>
+                                                <td className="py-4 px-3 text-right font-black text-lg md:text-2xl text-brand-primary rounded-r-xl">{result.obtainedMarks}</td>
                                             </tr>
                                         </tbody>
                                     </table>
                                 </div>
 
                                 {/* FINAL ANALYTICS */}
-                                <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-4">
-                                    <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-center">
-                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Percentage</p>
-                                        <p className="text-2xl font-black text-slate-800">{result.percentage}%</p>
+                                <div className="mt-6 grid grid-cols-3 gap-2 md:gap-4">
+                                    <div className="bg-slate-50 p-3 md:p-6 rounded-xl md:rounded-2xl border border-slate-100 text-center">
+                                        <p className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Per%</p>
+                                        <p className="text-sm md:text-2xl font-black text-slate-800">{result.percentage}%</p>
                                     </div>
-                                    <div className="bg-slate-50 p-6 rounded-2xl border border-slate-100 text-center">
-                                        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest mb-1">Final Grade</p>
-                                        <p className="text-2xl font-black text-slate-800">{result.grade || "N/A"}</p>
+                                    <div className="bg-slate-50 p-3 md:p-6 rounded-xl md:rounded-2xl border border-slate-100 text-center">
+                                        <p className="text-[8px] md:text-[9px] font-bold text-slate-400 uppercase tracking-widest mb-1">Grade</p>
+                                        <p className="text-sm md:text-2xl font-black text-slate-800">{result.grade || "N/A"}</p>
                                     </div>
-                                    <div className={`p-6 rounded-2xl border text-center ${result.status === 'Pass' ? 'bg-green-50 border-green-100 text-green-700' : 'bg-red-50 border-red-100 text-red-700'}`}>
-                                        <p className="text-[10px] font-bold uppercase tracking-widest mb-1 opacity-60">Status</p>
-                                        <p className="text-2xl font-black uppercase">{result.status}</p>
+                                    <div className={`p-3 md:p-6 rounded-xl md:rounded-2xl border text-center ${result.status === 'Pass' ? 'bg-green-50 border-green-100 text-green-700' : 'bg-red-50 border-red-100 text-red-700'}`}>
+                                        <p className="text-[8px] md:text-[9px] font-bold uppercase tracking-widest mb-1 opacity-60">Status</p>
+                                        <p className="text-sm md:text-2xl font-black uppercase">{result.status}</p>
                                     </div>
                                 </div>
                             </div>
 
                             {/* FOOTER */}
-                            <div className="p-8 bg-slate-50/50 border-t border-slate-100 text-center">
-                                <p className="text-[9px] text-slate-400 uppercase tracking-[0.3em] font-medium leading-loose">
-                                    This statement is issued for immediate information to the candidate. <br />
-                                    Original Marksheets are issued by the Board of Examination, Tanzeem-ul-Madaris.
+                            <div className="p-6 bg-slate-50/50 border-t border-slate-100 text-center">
+                                <p className="text-[8px] md:text-[9px] text-slate-400 uppercase tracking-[0.15em] font-medium leading-relaxed">
+                                    This is a digital statement. <br className="md:hidden" />
+                                    Original marksheet issued by the Board.
                                 </p>
                             </div>
                         </div>
@@ -206,13 +206,13 @@ export default function StudentResultPortal() {
 
 // UI HELPER COMPONENT
 const IdentityBox = ({ label, value, icon }) => (
-    <div className="flex items-start gap-3">
-        <div className="w-10 h-10 rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 shrink-0 border border-slate-100">
-            {React.cloneElement(icon, { size: 18 })}
+    <div className="flex items-start gap-3 overflow-hidden">
+        <div className="w-8 h-8 md:w-10 md:h-10 rounded-lg md:rounded-xl bg-slate-50 flex items-center justify-center text-slate-300 shrink-0 border border-slate-100">
+            {React.cloneElement(icon, { size: 16 })}
         </div>
-        <div className="overflow-hidden">
-            <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">{label}</p>
-            <p className="text-slate-800 font-bold truncate text-sm md:text-base leading-tight">{value}</p>
+        <div className="min-w-0 flex-1">
+            <p className="text-[8px] md:text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">{label}</p>
+            <p className="text-slate-800 font-bold text-xs md:text-base leading-tight break-words">{value}</p>
         </div>
     </div>
 );
